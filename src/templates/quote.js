@@ -13,7 +13,7 @@ export default ({ data }) => {
       <h2>
         Author: {quote.frontmatter.author}
       </h2>
-      <p dangerouslySetInnerHTML={{ __html: quote.html }} />
+      <div dangerouslySetInnerHTML={{ __html: quote.html }} />
       <hr />
       <p>
         Categories: {quote.frontmatter.categories.join(', ')}
