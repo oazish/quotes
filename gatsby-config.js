@@ -5,6 +5,7 @@
  */
 
 module.exports = {
+  pathPrefix: '/quotes',
   plugins: [
     {
       resolve: 'gatsby-source-filesystem',
