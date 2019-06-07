@@ -1,21 +1,24 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 
+import Layout from '../components/layout';
+
 export default ({ data }) => {
-  const post = data.markdownRemark;
+  const quote = data.markdownRemark;
   return (
-    <div>
+    <Layout>
       <h1>
         Quote
       </h1>
       <h2>
-        Author: {post.frontmatter.author}
+        Author: {quote.frontmatter.author}
       </h2>
-      <p dangerouslySetInnerHTML={{ __html: post.html }} />
+      <p dangerouslySetInnerHTML={{ __html: quote.html }} />
+      <hr />
       <p>
-        Categories: 
+        Categories: {quote.frontmatter.categories.join(', ')}
       </p>
-    </div>
+    </Layout>
   );
 };
 
@@ -25,7 +28,7 @@ export const query = graphql`
       html
       frontmatter {
         author
-        title
+        categories
       }
     }
   }

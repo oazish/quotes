@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
 
+import Layout from '../components/layout';
+
 export default ({ data }) => (
-  <div>
+  <Layout>
     <h1>
       All Quotes
     </h1>
@@ -13,7 +15,7 @@ export default ({ data }) => (
         </li>
       )}
     </ul>
-  </div>
+  </Layout>
 );
 
 export const query = graphql`
