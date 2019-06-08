@@ -1,10 +1,12 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 
 import Layout from '../components/layout';
 
 export default ({ data }) => {
   const quote = data.markdownRemark;
+  const categories = quote.frontmatter.categories;
+
   return (
     <Layout>
       <h1>
@@ -16,11 +18,22 @@ export default ({ data }) => {
       <div dangerouslySetInnerHTML={{ __html: quote.html }} />
       <hr />
       <p>
-        Categories: {quote.frontmatter.categories.join(', ')}
+        {/* There will always be at least one category per quote. */}
+        Categories: <CategoryLink category={categories[0]} />
+        {categories.slice(1).map(category => [
+          ', ',
+          <CategoryLink category={category} />
+        ])}
       </p>
     </Layout>
   );
 };
+
+const CategoryLink = ({ category }) => (
+  <Link to={`/categories/${category.toLowerCase().replace(/ /g, '-')}/`}>
+    {category}
+  </Link>
+);
 
 export const query = graphql`
   query($slug: String!) {
