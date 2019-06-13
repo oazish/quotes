@@ -1,5 +1,6 @@
 const path = require('path');
 const { createFilePath } = require('gatsby-source-filesystem');
+const kebabCase = require('lodash/kebabcase');
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
@@ -31,9 +32,6 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `);
 
-  // TODO: Potentially generate quote URL from prefix of its excerpt.
-  //data.allMarkdownRemark.nodes[0].excerpt.split(/\.|!|\?/)[0].split(/\s/).map(word => word.toLowerCase()).join('-')
-
   const quoteTemplate = path.resolve('./src/templates/quote.js');
   const categories = new Set();
   const categoryTemplate = path.resolve('./src/templates/category.js');
@@ -53,7 +51,7 @@ exports.createPages = async ({ graphql, actions }) => {
   });
 
   categories.forEach(category => createPage({
-    path: `/categories/${category.toLowerCase().replace(/ /g, '-')}/`,
+    path: `/categories/${kebabCase(category)}/`,
     component: categoryTemplate,
     context: { category },
   }));

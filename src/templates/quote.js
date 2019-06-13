@@ -1,5 +1,6 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
+import kebabCase from 'lodash/kebabCase';
 
 import Layout from '../components/layout';
 
@@ -30,7 +31,7 @@ export default ({ data }) => {
 };
 
 const CategoryLink = ({ category }) => (
-  <Link to={`/categories/${category.toLowerCase().replace(/ /g, '-')}/`}>
+  <Link to={`/categories/${kebabCase(category)}/`}>
     {category}
   </Link>
 );
