@@ -9,6 +9,8 @@ export default ({ children }) => (
       <Link to="/quotes/">All Quotes</Link>
       {' \u2022 '}
       <Link to="/categories/">Quote Categories</Link>
+      {' \u2022 '}
+      <Link to="/authors/rama/">About Rama</Link>
     </nav>
     <hr />
     <div>

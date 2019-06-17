@@ -18,10 +18,6 @@ export const query = graphql`
     allMarkdownRemark {
       nodes {
         excerpt(pruneLength: 50)
-        frontmatter {
-          author
-          categories
-        }
         fields {
           slug
         }

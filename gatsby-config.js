@@ -10,11 +10,19 @@ module.exports = {
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        name: 'src',
-        path: `${__dirname}/src/`,
+        name: 'quotes',
+        path: `${__dirname}/src/quotes`,
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'data',
+        path: `${__dirname}/src/data`,
       },
     },
     'gatsby-transformer-remark',
+    'gatsby-transformer-yaml',
     {
       resolve: 'gatsby-plugin-typography',
       options: {
@@ -22,4 +30,7 @@ module.exports = {
       },
     },
   ],
+  mapping: {
+    'MarkdownRemark.frontmatter.author': 'AuthorsYaml',
+  },
 };

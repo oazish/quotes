@@ -1,16 +1,19 @@
 const path = require('path');
-const { createFilePath } = require('gatsby-source-filesystem');
 const kebabCase = require('lodash/kebabcase');
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
+
   if (node.internal.type === 'MarkdownRemark') {
-    const slug = createFilePath({ node, getNode, basePath: 'src/quotes' });
-    createNodeField({
-      node,
-      name: 'slug',
-      value: slug,
-    });
+    const parent = getNode(node.parent);
+
+    if (parent.sourceInstanceName === 'quotes') {
+      createNodeField({
+        node,
+        name: 'slug',
+        value: `/quotes/${parent.name}/`,
+      });
+    }
   }
 };
 
@@ -21,7 +24,6 @@ exports.createPages = async ({ graphql, actions }) => {
       allMarkdownRemark {
         nodes {
           frontmatter {
-            author
             categories
           }
           fields {

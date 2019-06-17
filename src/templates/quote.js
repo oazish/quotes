@@ -14,34 +14,35 @@ export default ({ data }) => {
         Quote
       </h1>
       <h2>
-        Author: {quote.frontmatter.author}
+        Author:
+        {' '}
+        <Link to={`/authors/${quote.frontmatter.author.id}/`}>
+          {quote.frontmatter.author.name}
+        </Link>
       </h2>
       <div dangerouslySetInnerHTML={{ __html: quote.html }} />
       <hr />
       <p>
-        {/* There will always be at least one category per quote. */}
-        Categories: <CategoryLink category={categories[0]} />
-        {categories.slice(1).map(category => [
-          ', ',
-          <CategoryLink category={category} />
+        {categories.map((category, i) => [
+          i > 0 && ', ',
+          <Link to={`/categories/${kebabCase(category)}/`}>
+            {category}
+          </Link>
         ])}
       </p>
     </Layout>
   );
 };
 
-const CategoryLink = ({ category }) => (
-  <Link to={`/categories/${kebabCase(category)}/`}>
-    {category}
-  </Link>
-);
-
 export const query = graphql`
   query($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       frontmatter {
-        author
+        author {
+          id
+          name
+        }
         categories
       }
     }
