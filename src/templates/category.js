@@ -6,8 +6,16 @@ import QuotesList from '../components/quotes-list';
 
 export default ({ pageContext, data }) => (
   <Layout>
-    <h1>Quotes</h1>
-    <h2>Category: {pageContext.category}</h2>
+    <h1>Category: {pageContext.category}</h1>
+    {
+      !data.file ? null :
+        <img
+          alt={pageContext.category}
+          src={data.file.publicURL}
+          style={{ width: '600px' }}
+        />
+    }
+    <h2>Quotes</h2>
     <QuotesList markdownRemarkNodes={data.allMarkdownRemark.nodes} />
   </Layout>
 );
@@ -25,6 +33,13 @@ export const query = graphql`
           slug
         }
       }
+    }
+    file(
+      sourceInstanceName: { eq: "images" }
+      relativeDirectory: { eq: "categories" }
+      name: { eq: $category }
+    ) {
+      publicURL
     }
   }
 `;
