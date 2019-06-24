@@ -17,6 +17,42 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
   }
 };
 
+exports.createResolvers = ({ createResolvers }) => createResolvers({
+  MarkdownRemark: {
+    image: {
+      type: 'File',
+      resolve: async (source, args, context, info) => {
+        const fileNode = context.nodeModel.getNodeById({
+          id: source.parent,
+          type: 'File',
+        });
+        const result = await context.nodeModel.runQuery({
+          type: 'File',
+          firstOnly: true,
+          query: {
+            filter: {
+              sourceInstanceName: { eq: 'images' },
+              relativeDirectory: { eq: 'quotes' },
+              name: { eq: fileNode.name },
+            },
+          },
+        });
+        return result || context.nodeModel.runQuery({
+          type: 'File',
+          firstOnly: true,
+          query: {
+            filter: {
+              sourceInstanceName: { eq: 'images' },
+              relativeDirectory: { eq: 'categories' },
+              name: { in: source.frontmatter.categories },
+            },
+          },
+        });
+      },
+    },
+  },
+});
+
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
   const { data } = await graphql(`

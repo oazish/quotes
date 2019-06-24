@@ -20,6 +20,11 @@ export default ({ data }) => {
           {quote.frontmatter.author.name}
         </Link>
       </h2>
+      <img
+        alt={quote.image.name}
+        src={quote.image.publicURL}
+        style={{ width: '600px' }}
+      />
       <div dangerouslySetInnerHTML={{ __html: quote.html }} />
       <hr />
       <p>
@@ -44,6 +49,9 @@ export const query = graphql`
           name
         }
         categories
+      }
+      image {
+        publicURL
       }
     }
   }
