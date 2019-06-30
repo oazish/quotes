@@ -1,6 +1,14 @@
 const path = require('path');
 const kebabCase = require('lodash/kebabcase');
 
+const COLOR_LIGHTNESS_BUCKETS = (
+  ({ numValues, lowest, highest }) => {
+    const interval = (highest - lowest) / (numValues - 1);
+    return Array.from(new Array(numValues))
+      .map((_, i) => lowest + i * interval);
+  }
+)({ numValues: 10, lowest: 18, highest:63 });
+
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
 
@@ -37,17 +45,24 @@ exports.createResolvers = ({ createResolvers }) => createResolvers({
             },
           },
         });
-        return result || context.nodeModel.runQuery({
-          type: 'File',
-          firstOnly: true,
-          query: {
-            filter: {
-              sourceInstanceName: { eq: 'images' },
-              relativeDirectory: { eq: 'categories' },
-              name: { in: source.frontmatter.categories },
-            },
+        return result;
+      },
+    },
+    color: {
+      type: 'String!',
+      resolve: (source, args, context, info) => {
+        const toHash = source.fields.slug;
+        const hash = Array.from(toHash).reduce(
+          (hash, char) => {
+            hash = (hash << 5) - hash + char.charCodeAt(0);
+            return hash & hash;
           },
-        });
+          0,
+        );
+        const numBuckets = COLOR_LIGHTNESS_BUCKETS.length;
+        // Mod the hash by the number of buckets, taking care of negatives.
+        const index = (hash % numBuckets + numBuckets) % numBuckets;
+        return `hsl(0, 0%, ${COLOR_LIGHTNESS_BUCKETS[index]}%)`;
       },
     },
   },

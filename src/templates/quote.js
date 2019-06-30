@@ -20,22 +20,42 @@ export default ({ data }) => {
           {quote.frontmatter.author.name}
         </Link>
       </h2>
-      <img
-        alt={quote.image.name}
-        src={quote.image.publicURL}
-        style={{ width: '600px' }}
-      />
+      <QuoteImage quote={quote} />
       <div dangerouslySetInnerHTML={{ __html: quote.html }} />
       <hr />
       <p>
         {categories.map((category, i) => [
           i > 0 && ', ',
-          <Link to={`/categories/${kebabCase(category)}/`}>
+          <Link
+            key={category}
+            to={`/categories/${kebabCase(category)}/`}
+          >
             {category}
           </Link>
         ])}
       </p>
     </Layout>
+  );
+};
+
+const QuoteImage = ({ quote }) => {
+  if (!quote.image) {
+    const style = {
+      width: '600px',
+      height: '400px',
+      backgroundColor: quote.color,
+    };
+    return (
+      <div style={style} />
+    );
+  }
+
+  return (
+    <img
+      alt={quote.image.name}
+      src={quote.image.publicURL}
+      style={{ width: '600px' }}
+    />
   );
 };
 
@@ -53,6 +73,7 @@ export const query = graphql`
       image {
         publicURL
       }
+      color
     }
   }
 `;

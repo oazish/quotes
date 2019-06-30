@@ -21,6 +21,10 @@ export const query = graphql`
         fields {
           slug
         }
+        image {
+          publicURL
+        }
+        color
       }
     }
   }
