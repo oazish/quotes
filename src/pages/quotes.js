@@ -4,8 +4,8 @@ import { graphql } from 'gatsby';
 import Layout from '../components/layout';
 import QuotesList from '../components/quotes-list';
 
-export default ({ data }) => (
-  <Layout>
+export default ({ data, location }) => (
+  <Layout location={location}>
     <h1>
       All Quotes
     </h1>

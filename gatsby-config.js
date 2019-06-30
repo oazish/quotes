@@ -30,12 +30,6 @@ module.exports = {
     },
     'gatsby-transformer-remark',
     'gatsby-transformer-yaml',
-    {
-      resolve: 'gatsby-plugin-typography',
-      options: {
-        pathToConfigModule: 'src/utils/typography',
-      },
-    },
   ],
   mapping: {
     'MarkdownRemark.frontmatter.author': 'AuthorsYaml',

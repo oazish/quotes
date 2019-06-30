@@ -40,13 +40,14 @@ export default ({ data }) => {
 
 const QuoteImage = ({ quote }) => {
   if (!quote.image) {
-    const style = {
-      width: '600px',
-      height: '400px',
-      backgroundColor: quote.color,
-    };
     return (
-      <div style={style} />
+      <div
+        style={{
+          width: '600px',
+          height: '400px',
+          backgroundColor: quote.color,
+        }}
+      />
     );
   }
 

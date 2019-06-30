@@ -4,8 +4,8 @@ import kebabCase from 'lodash/kebabCase';
 
 import Layout from '../components/layout';
 
-export default ({ data }) => (
-  <Layout>
+export default ({ data, location }) => (
+  <Layout location={location}>
     <h1>
       Quote Categories
     </h1>

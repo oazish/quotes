@@ -4,17 +4,18 @@ import { Link } from 'gatsby';
 export default ({ markdownRemarkNodes: quotes }) => (
   <ul>
       {quotes.map(quote =>
-      <li key={quote.fields.slug}>
-          <QuoteImage quote={quote} />
-          {' '}
-          <Link to={quote.fields.slug}>{quote.excerpt}</Link>
+      <li key={quote.fields.slug} className="mb-1">
+          <Link to={quote.fields.slug} className="text-decoration-none">
+            <QuoteImage quote={quote} />
+            {' '}
+            {quote.excerpt}
+          </Link>
       </li>
       )}
   </ul>
 );
 
 const QuoteImage = ({ quote }) => {
-  debugger;
   const visual = quote.image
     ? (
       <img
@@ -30,7 +31,8 @@ const QuoteImage = ({ quote }) => {
           height: '66px',
           backgroundColor: quote.color,
         }}
+        className="align-middle d-inline-block"
       />
     );
-  return <div style={{ display: 'inline-block' }}>{visual}</div>;
+  return <div className="d-inline-block">{visual}</div>;
 };

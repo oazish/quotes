@@ -1,19 +1,23 @@
 import React from 'react';
 import { Link } from 'gatsby';
 
-export default ({ children }) => (
-  <div style={{ padding: '1em' }}>
-    <nav style={{ marginBottom: '1em' }}>
-      <Link to="/">Spiritual Quotes</Link>
-      {' \u2022 '}
-      <Link to="/quotes/">All Quotes</Link>
-      {' \u2022 '}
-      <Link to="/categories/">Quote Categories</Link>
-      {' \u2022 '}
-      <Link to="/authors/rama/">About Rama</Link>
+export default ({ location, children }) => (
+  <div>
+    <nav className="nav nav-tabs">
+      <Link to="/" className="nav-link" activeClassName="active">
+        Spiritual Quotes
+      </Link>
+      <Link to="/quotes/" className="nav-link" activeClassName="active">
+        All Quotes
+      </Link>
+      <Link to="/categories/" className="nav-link" activeClassName="active">
+        Quote Categories
+      </Link>
+      <Link to="/authors/rama/" className="nav-link" activeClassName="active">
+        About Rama
+      </Link>
     </nav>
-    <hr />
-    <div>
+    <div className="p-3">
       {children}
     </div>
   </div>
