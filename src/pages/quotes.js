@@ -4,8 +4,8 @@ import { graphql } from 'gatsby';
 import Layout from '../components/layout';
 import QuotesList from '../components/quotes-list';
 
-export default ({ data, location }) => (
-  <Layout location={location}>
+export default ({ data }) => (
+  <Layout>
     <h1>
       All Quotes
     </h1>
@@ -17,7 +17,7 @@ export const query = graphql`
   {
     allMarkdownRemark {
       nodes {
-        excerpt(pruneLength: 50)
+        excerpt(pruneLength: 200)
         fields {
           slug
         }

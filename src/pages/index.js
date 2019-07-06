@@ -2,8 +2,8 @@ import React from 'react';
 
 import Layout from '../components/layout';
 
-export default ({ location }) => (
-  <Layout location={location}>
+export default () => (
+  <Layout>
     <p>Welcome to spiritual quotes!</p>
   </Layout>
 );

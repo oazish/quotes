@@ -4,14 +4,14 @@ import kebabCase from 'lodash/kebabCase';
 
 import Layout from '../components/layout';
 
-export default ({ data, location }) => (
-  <Layout location={location}>
+export default ({ data }) => (
+  <Layout>
     <h1>
       Quote Categories
     </h1>
     <ul>
       {data.allMarkdownRemark.group.map(({fieldValue: category}) =>
-        <li>
+        <li key={category}>
           {
             /*
              * TODO: Deduplicate category link generation, and possibly figure

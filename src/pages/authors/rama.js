@@ -3,8 +3,8 @@ import React from 'react';
 
 import Layout from '../../components/layout';
 
-export default ({ location }) => (
-  <Layout location={location}>
+export default () => (
+  <Layout>
     <h1>About Rama, Frederick Lenz</h1>
     <div>
       Rama, Dr. Frederick Lenz was an enlightened spiritual teacher.

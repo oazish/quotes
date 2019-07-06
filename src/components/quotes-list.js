@@ -1,34 +1,49 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import { FaShareAltSquare } from 'react-icons/fa';
 
 export default ({ markdownRemarkNodes: quotes }) => (
-  <ul>
+  <div className="d-flex flex-column">
       {quotes.map(quote =>
-      <li key={quote.fields.slug} className="mb-1">
-          <Link to={quote.fields.slug} className="text-decoration-none">
+        <div className="container-fluid p-0">
+        <div className="row mb-2 border shadow-sm">
+          <Link
+            key={quote.fields.slug}
+            to={quote.fields.slug}
+            className="col d-flex p-0 align-items-center text-decoration-none"
+          >
             <QuoteImage quote={quote} />
-            {' '}
-            {quote.excerpt}
+            <div className="m-3">
+              {quote.excerpt}
+            </div>
           </Link>
-      </li>
+          <div className="col-auto d-flex align-items-center">
+            <FaShareAltSquare size="32px" color="darkgray" />
+          </div>
+        </div>
+        </div>
       )}
-  </ul>
+  </div>
 );
 
 const QuoteImage = ({ quote }) => {
   const visual = quote.image
     ? (
-      <img
-        alt={quote.image.name}
-        src={quote.image.publicURL}
-        style={{ width: '99px' }}
+      <div
+        style={{
+          backgroundImage: `url('${quote.image.publicURL}')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          width: '212px',
+          height: '190px',
+        }}
       />
     )
     : (
       <div
         style={{
-          width: '99px',
-          height: '66px',
+          width: '212px',
+          height: '190px',
           backgroundColor: quote.color,
         }}
         className="align-middle d-inline-block"
