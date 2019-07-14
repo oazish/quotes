@@ -12,7 +12,9 @@ export default ({ data }) => (
     <h1>
       All Quotes
     </h1>
-    <QuotesList markdownRemarkNodes={data.allMarkdownRemark.nodes} />
+    <div className="mx-3">
+      <QuotesList markdownRemarkNodes={data.allMarkdownRemark.nodes} />
+    </div>
   </Layout>
 );
 
