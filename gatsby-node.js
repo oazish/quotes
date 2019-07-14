@@ -93,11 +93,7 @@ exports.createPages = async ({ graphql, actions }) => {
     createPage({
       path: node.fields.slug,
       component: quoteTemplate,
-      context: {
-        // Data passed to context is available
-        // in page queries as GraphQL variables.
-        slug: node.fields.slug,
-      },
+      context: { slug: node.fields.slug },
     });
     // Add the post categories into the set.
     node.frontmatter.categories.forEach(category => categories.add(category));
@@ -108,4 +104,14 @@ exports.createPages = async ({ graphql, actions }) => {
     component: categoryTemplate,
     context: { category },
   }));
+
+  if (process.env.NODE_ENV === 'development') {
+    const overlayTemplate = path.resolve('./src/templates/overlay.js');
+
+    data.allMarkdownRemark.nodes.forEach(node => createPage({
+      path: `/overlay${node.fields.slug}`,
+      component: overlayTemplate,
+      context: { slug: node.fields.slug },
+    }));
+  }
 };
