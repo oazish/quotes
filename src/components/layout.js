@@ -3,7 +3,7 @@ import { Link } from 'gatsby';
 
 export default ({ children }) => (
   <div>
-    <nav className="navbar navbar-expand-md navbar-light bg-light">
+    <nav className="navbar navbar-expand-md justify-content-between navbar-light bg-light">
       <Link to="/" className="navbar-brand" activeClassName="active">
         Spiritual Quotes
       </Link>
@@ -20,6 +20,10 @@ export default ({ children }) => (
       </button>
       <div className="collapse navbar-collapse" id="navbarNav">
         <div className="navbar-nav">
+          {
+            // ^ Add "justify-content-between flex-grow-1" to classes to make
+            //   navbar elements spread out from one another.
+          }
           <Link to="/all-quotes/" className="nav-item nav-link" activeClassName="active">
             All Quotes
           </Link>
