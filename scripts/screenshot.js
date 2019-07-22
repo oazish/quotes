@@ -1,71 +1,131 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs').promises;
 const path = require('path');
-const http = require('http');
 const url = require('url');
+const util = require('util');
+const { Writable, Readable, Transform, pipeline } = require('stream');
 
 GATSBY_DEVELOP_URL = 'http://localhost:8000';
 
 +async function main() {
-  const quotes_dir = path.join(__dirname, '../src/quotes');
-  const browser = await puppeteer.launch();
+  const quotesDir = path.join(__dirname, '../src/quotes');
+  const quotesFiles = await fs.readdir(quotesDir);
+
+  const MAX_BOTTLENECK_SIZE = 5;
+  const active = 0;
+  //const active workers.
+
+  for (const work of [1,2,3,4,5,6,7,8,9,10]) {
+    if (active < MAX_BOTTLENECK_SIZE) {
+      active++;
+      // Schedule browser.
+      setTimeout(--active) // and somehow need to "wake up" parent.
+    } else {
+      
+    }
+  }
+
+
+  return;
+
+  const readableStream = new Readable({ objectMode: true });
+  readableStream._read = () => {};
+  quotesFiles.forEach(x => console.log(readableStream.push(x)));
+  readableStream.push(null);
+  const screenshotStream = new ScreenshotStream();
+  // const screenshotStream = new Writable({
+  //   write(quoteFile, _encoding, callback) {
+  //     console.log(`${quoteFile}: omg`);
+  //     callback();
+  //     // setTimeout(callback, 1000);
+  //   }
+  // });
+
+  // const bottleneckStream = new Transform({
+  //   transform(obj, _encoding, callback) {
+  //     callback(null, obj);
+  //   },
+  //   objectMode: true,
+  //   highWaterMark: 5,
+  // });
 
   try {
-    const page = await browser.newPage();
-    page.setViewport({ width: 800, height: 800 });
+    await util.promisify(pipeline)(
+      readableStream,
+      //bottleneckStream,
+      screenshotStream,
+    );
+    console.log('Done');
 
-    for (const quote_file of await fs.readdir(quotes_dir)) {
-      const quote_id = quote_file.split('.')[0];
-      const output_file = `screenshots/quote-${quote_id}.jpg`;
-      // const contents = await
-      //   fs.readFile(path.join(quotes_dir, quote_file), 'utf8');
-      await page.goto(url.resolve(GATSBY_DEVELOP_URL, `overlay/quotes/${quote_id}`));
-      await page.screenshot({ path: output_file });
-      console.log(`Generated ${output_file}.`);
-
-      // await getContent(
-      //   `${GATSBY_DEVELOP_URL}/overlay/quotes/${quote_file.split('.')[0]}`);
-      // http
-      //   .request({ hostname: 'localhost', port: 8000 }, res => {
-      //     //if (res.)
-      //   })
-      //   .on('error', e => {
-      //     console.error(
-      //       `Cannot access ${GATSBY_DEVELOP_URL}. Please make sure the Gatsby`,
-      //       `development server is started.`,
-      //       e,
-      //     );
-      //   });
-    }
-
-  } finally {
-    await browser.close();
+  } catch (e) {
+    console.error(e);
   }
 }();
 
-async function main() {}
+const MAX_BROWSERS = 2;
 
-/**
- * Taken from https://www.tomas-dvorak.cz/posts/nodejs-request-without-dependencies/.
- */
-function getContent(url) {
-  // return new pending promise
-  return new Promise((resolve, reject) => {
-    // select http or https module, depending on reqested url
-    const lib = url.startsWith('https') ? require('https') : require('http');
-    const request = lib.get(url, (response) => {
-      // handle http errors
-      if (response.statusCode < 200 || response.statusCode > 299) {
-         reject(new Error('Failed to load page, status code: ' + response.statusCode));
-       }
-      // temporary data holder
-      const body = [];
-      // on every content chunk, push it to the data array
-      response.on('data', (chunk) => body.push(chunk));
-      // we are done, resolve promise with those joined chunks
-      response.on('end', () => resolve(body.join('')));
-    });
-    // handle connection errors of the request
-    request.on('error', (err) => reject(err))
-    })
-};
+class ScreenshotStream extends Writable {
+  constructor(options) {
+    super({ ...options, objectMode: true, highWaterMark: MAX_BROWSERS });
+    this.freeBrowsers = new Map();
+    this.busyBrowsers = new Map();
+  }
+
+  async _write(quoteFile, _encoding, callback) {
+    try {
+      const log = (...args) => console.log(`${quoteFile}:`, ...args);
+
+      if (!this.freeBrowsers.size) {
+        this.freeBrowsers.set(
+          this.busyBrowsers.size,
+          await puppeteer.launch(),
+        );
+        log(`New browser created: ${this.busyBrowsers.size}`);
+      }
+
+      callback();
+      const [browserKey, browser] = this.freeBrowsers.entries().next().value;
+      move_map_entry(browserKey, this.freeBrowsers, this.busyBrowsers);
+      log(`Moved free browser ${browserKey} to busy browsers.`);
+
+      // Move browser from free to busy.
+      this.freeBrowsers.delete(browserKey);
+      this.freeBrowsers.set(browserKey, browser);
+
+      // Do work.
+      // await new Promise(res => setTimeout(res, 1000));
+      const page = await browser.newPage();
+      const quoteId = quoteFile.split('.')[0];
+      const outputFile = `screenshots/quote-${quoteId}.jpg`;
+      page.setViewport({ width: 800, height: 800 });
+      await page.goto(
+        url.resolve(GATSBY_DEVELOP_URL, `overlay/quotes/${quoteId}`),
+      );
+      await page.screenshot({ path: outputFile });
+
+      // Move browser from busy to free.
+      move_map_entry(browserKey, this.busyBrowsers, this.freeBrowsers);
+      log(`Finished and moved busy browser ${browserKey} to free browsers.`);
+      // callback();
+
+    } catch (err) {
+      this.emit('error', err);
+    }
+
+    function move_map_entry(key, fromMap, toMap) {
+      if (!fromMap.has(key)) {
+        throw new Error(`Key ${key} does not exist in map.`);
+      }
+
+      toMap.set(key, fromMap.get(key));
+      fromMap.delete(key);
+    }
+  }
+
+  async _final2(callback) {
+    await Promise.all([this.freeBrowsers, this.busyBrowsers].map(browsers =>
+      Promise.all([...browsers].map(browser => browser.close())),
+    ));
+    callback();
+  }
+}
