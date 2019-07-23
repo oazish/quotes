@@ -4,6 +4,8 @@ import { graphql } from 'gatsby';
 import Layout from '../components/layout';
 import QuotesList from '../components/quotes-list';
 
+// TODO: Deduplicate common three-column layout between author detail and
+//   category detail pages.
 export default ({ pageContext, data }) => (
   <Layout>
     <div className="container-fluid">
