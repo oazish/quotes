@@ -22,5 +22,9 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-icons": "^3.7.0"
+  },
+  "dependencies": {
+    "gatsby-plugin-react-helmet": "^3.1.2",
+    "react-helmet": "^5.2.1"
   }
 }

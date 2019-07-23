@@ -5,7 +5,7 @@
  */
 
 module.exports = {
-  pathPrefix: '/quotes',
+  pathPrefix: '/spiritual-quotes',
   plugins: [
     {
       resolve: 'gatsby-source-filesystem',
@@ -30,6 +30,7 @@ module.exports = {
     },
     'gatsby-transformer-remark',
     'gatsby-transformer-yaml',
+    'gatsby-plugin-react-helmet',
   ],
   mapping: {
     'MarkdownRemark.frontmatter.author': 'AuthorsYaml',
