@@ -11,6 +11,7 @@ export default ({ pageContext, data }) => (
     <div className="container-fluid">
       <div className="row">
         <div className="col-12 col-lg-auto">
+          <div className="d-inline-block">
           {
             // TODO: Use a default category color if image is missing.
             !data.file ? null :
@@ -25,8 +26,12 @@ export default ({ pageContext, data }) => (
                 }}
               />
           }
-          <div className="font-weight-bold text-center">
-            Category: {pageContext.category}
+          {/* Prevents text from expanding wider than category image. */}
+          <div className="d-flex font-weight-bold text-center">
+            <div style={{ width: 0 }} className="flex-grow-1">
+              Category: {pageContext.category}
+            </div>
+          </div>
           </div>
         </div>
         <div className="col-12 mt-3 ml-2 col-lg-8 mt-lg-0">

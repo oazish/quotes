@@ -22,17 +22,17 @@ export default ({ data }) => {
       </h2>
       <QuoteImage quote={quote} />
       <div dangerouslySetInnerHTML={{ __html: quote.html }} />
-      <hr />
+      <h3>Categories</h3>
       <p>
-        {categories.map((category, i) => [
-          i > 0 && ', ',
+        {categories.map((category, i) =>
           <Link
+            className="badge badge-light mr-1"
             key={category}
             to={`/categories/${kebabCase(category)}/`}
           >
             {category}
           </Link>
-        ])}
+        )}
       </p>
     </Layout>
   );
