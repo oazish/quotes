@@ -13,7 +13,7 @@ export default ({ pageContext, data }) => (
             // TODO: Use a default category color if image is missing.
             !data.file ? null :
               <div
-                className="rounded-circle mb-3 mx-auto"
+                className="mb-3 mx-auto"
                 style={{
                   backgroundImage: `url('${data.file.publicURL}')`,
                   backgroundSize: 'cover',
