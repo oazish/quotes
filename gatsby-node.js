@@ -7,7 +7,7 @@ const COLOR_LIGHTNESS_BUCKETS = (
     return Array.from(new Array(numValues))
       .map((_, i) => lowest + i * interval);
   }
-)({ numValues: 10, lowest: 18, highest:63 });
+)({ numValues: 5, lowest: 30, highest: 78 });
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;

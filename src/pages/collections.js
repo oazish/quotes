@@ -4,7 +4,9 @@ import Layout from '../components/layout';
 
 export default () => (
   <Layout>
-    <h1>Spiritual Quotes Home</h1>
-    <p>Welcome to spiritual quotes!</p>
+    <h1>Collections</h1>
+    <div>
+      Here be collections... eventually.
+    </div>
   </Layout>
 );
