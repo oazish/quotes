@@ -1,8 +1,14 @@
-/**
- * Configure your Gatsby site with this file.
- *
- * See: https://www.gatsbyjs.org/docs/gatsby-config/
- */
+const queries = require('./src/utils/algolia');
+
+const algoliaPlugin = {
+  resolve: 'gatsby-plugin-algolia',
+  options: {
+    appId: process.env.GATSBY_ALGOLIA_APP_ID,
+    apiKey: process.env.ALGOLIA_ADMIN_KEY,
+    queries,
+    chunkSize: 10000, // default: 1000
+  },
+};
 
 module.exports = {
   pathPrefix: '/spiritual-quotes',
@@ -31,6 +37,12 @@ module.exports = {
     'gatsby-transformer-remark',
     'gatsby-transformer-yaml',
     'gatsby-plugin-react-helmet',
+    // Only configure Algolia plugin if needed environment variables are set.
+    ...(
+      algoliaPlugin.options.appId && algoliaPlugin.options.apiKey
+      ? [algoliaPlugin]
+      : []
+    ),
   ],
   mapping: {
     'MarkdownRemark.frontmatter.author': 'AuthorsYaml',

@@ -28,7 +28,7 @@ const Navbar = () => (
   >
     <div
       className="align-self-center flex-grow-1 flex-md-grow-0"
-      // Setting `flex-basis: 0` perfectly centers logo in collapsed mode.
+      // Setting `flex-basis: 0` centers logo in collapsed mode.
       style={{ flexBasis: 0 }}
     >
       <button
@@ -46,6 +46,10 @@ const Navbar = () => (
     <Link to="/" className="d-md-none p-1" activeClassName="active">
       <img src={logo} width="50" alt="Logo" />
     </Link>
+    {/**
+      * In collapsed mode, render empty element on right to balance out button
+      * on left to center logo.
+      */}
     <div className="flex-grow-1 d-md-none" />
     <div
       id="navbarNav"
