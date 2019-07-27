@@ -11,18 +11,15 @@ const quotesQuery = `
   }
 `;
 
-const settings = { attributesToSnippet: ['excerpt:20'] };
-
 const queries = [
   {
     query: quotesQuery,
     transformer: ({ data }) => data.quotes.nodes.map(node => ({
-      ...node,
+      value: node.excerpt,
       // Object ID should be unique, so set it to quote slug.
       objectID: node.fields.slug,
     })),
     indexName: 'quotes',
-    settings,
   },
 ];
 

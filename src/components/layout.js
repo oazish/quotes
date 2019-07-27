@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, withPrefix } from 'gatsby';
 import { Helmet } from 'react-helmet';
+import { IoMdSearch } from 'react-icons/io';
 
 import logo from '../assets/images/logo.png';
 
@@ -46,7 +47,7 @@ const Navbar = () => (
     <Link to="/" className="d-md-none p-1" activeClassName="active">
       <img src={logo} width="50" alt="Logo" />
     </Link>
-    {/**
+    {/*
       * In collapsed mode, render empty element on right to balance out button
       * on left to center logo.
       */}
@@ -88,7 +89,10 @@ const Navbar = () => (
         className="nav-item nav-link"
         activeClassName="active"
       >
-        Collections
+        {/*
+          * TODO: Cover collapsed navbar case for search
+          */}
+        <IoMdSearch size="24px" />
       </Link>
     </div>
   </nav>
