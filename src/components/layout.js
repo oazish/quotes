@@ -2,34 +2,42 @@ import React from 'react';
 import { Link, withPrefix } from 'gatsby';
 import { Helmet } from 'react-helmet';
 import { IoMdSearch } from 'react-icons/io';
+import classNames from 'classnames';
 
 import logo from '../assets/images/logo.png';
 
-export default ({ children }) => (
-  <>
-    <Helmet
-      link={[{
-        rel: 'icon',
-        type: 'image/x-icon',
-        href: withPrefix('/favicon.ico'),
-      }]}
-    >
-      <div className="p-3">
-        {children}
-      </div>
-    </Helmet>
-    <Navbar />
-    <div className="p-3">{children}</div>
-  </>
-);
+export default class Layout extends React.Component {
+  state = { searching: false };
 
-const Navbar = () => (
+  render() {
+    return (
+      <>
+        <Helmet
+          link={[{
+            rel: 'icon',
+            type: 'image/x-icon',
+            href: withPrefix('/favicon.ico'),
+          }]}
+        />
+        <Navbar
+          searching={this.state.searching}
+          setSearchState={searching => this.setState({ searching })}
+        />
+        <div className="p-3">{this.props.children}</div>
+      </>
+    );
+  }
+}
+
+const Navbar = ({ searching, setSearchState }) => (
   <nav
-    className="navbar-expand-md navbar-light bg-light pl-3 d-flex flex-wrap"
+    className="
+      navbar-expand-md navbar-light bg-light pl-3 d-flex flex-wrap
+    "
   >
     <div
       className="align-self-center flex-grow-1 flex-md-grow-0"
-      // Setting `flex-basis: 0` centers logo in collapsed mode.
+      // With `flex-basis: 0`, logo renders closer to center in collapsed mode.
       style={{ flexBasis: 0 }}
     >
       <button
@@ -44,9 +52,7 @@ const Navbar = () => (
         <span className="navbar-toggler-icon" />
       </button>
     </div>
-    <Link to="/" className="d-md-none p-1" activeClassName="active">
-      <img src={logo} width="50" alt="Logo" />
-    </Link>
+    <Logo className="d-md-none p-1" onClick={() => setSearchState(false)} />
     {/*
       * In collapsed mode, render empty element on right to balance out button
       * on left to center logo.
@@ -58,42 +64,115 @@ const Navbar = () => (
     >
       <Link
         to="/quotes/"
-        className="nav-item nav-link"
+        className={classNames({
+          'nav-item nav-link': true,
+          'flex-grow-1 invisible d-none d-md-block': searching,
+        })}
+        style={searching ? { flexBasis: 0 } : {}}
         activeClassName="active"
       >
         All Quotes
       </Link>
       <Link
         to="/categories/"
-        className="nav-item nav-link"
+        className={classNames({
+          'nav-item nav-link': true,
+          'd-none': searching,
+        })}
         activeClassName="active"
       >
         Quote Categories
       </Link>
-      <Link
-        to="/"
+      <Logo
         className="nav-item nav-link d-none d-md-block"
-        activeClassName="active"
-      >
-        <img src={logo} width="50" alt="Logo" />
-      </Link>
+        onClick={() => setSearchState(false)}
+      />
       <Link
         to="/authors/rama/"
-        className="nav-item nav-link"
+        className={classNames({
+          'nav-item nav-link': true,
+          'd-none': searching,
+        })}
         activeClassName="active"
       >
         About Rama
       </Link>
-      <Link
-        to="/collections/"
-        className="nav-item nav-link"
-        activeClassName="active"
+      <button
+        type="button"
+        className={classNames({
+          'd-none': searching,
+          'd-flex': !searching,
+          'btn btn-link nav-link': true,
+        })}
+        onClick={() => setSearchState(true)}
       >
-        {/*
-          * TODO: Cover collapsed navbar case for search
-          */}
-        <IoMdSearch size="24px" />
-      </Link>
+        <SearchIcon className="d-none d-md-inline" />
+        <span className="d-md-none">Search</span>
+      </button>
+      {
+        // Conditionally render search bar using React rather than CSS so that
+        // <input> gets autofocused.
+        searching
+        ? (
+          <SearchBar
+            className="
+              flex-grow-1 w-auto ml-md-3 my-2 my-md-0 mr-3 align-self-stretch
+              align-self-md-auto
+            "
+            style={{ flexBasis: 0 }}
+            onExit={() => setSearchState(false)}
+          />
+        )
+        : null
+      }
     </div>
   </nav>
 );
+
+const Logo = props => (
+  <Link
+    to="/"
+    activeClassName="active"
+    {...props}
+  >
+    <img src={logo} width="50" alt="Logo" />
+  </Link>
+);
+
+const SearchIcon = props => <IoMdSearch size="22px" {...props} />;
+
+// TODO: Exit on Esc keypress, and focus blur, too.
+// TODO: Make sure "X" icon works on iOS, Android, Windows
+const SearchBar = ({ onExit, className, ...props }) => {
+  const inputRef = React.createRef();
+
+  return (
+    <div className={classNames('input-group', className)} {...props}>
+      <div className="input-group-prepend">
+        <span className="input-group-text">
+          <SearchIcon />
+        </span>
+      </div>
+      <input
+        ref={inputRef}
+        autoFocus="true"
+        type="text"
+        className="form-control"
+        placeholder="Search"
+        aria-label="Search"
+      />
+      <div className="input-group-append">
+        <button
+          type="button"
+          className="btn btn-outline-secondary input-group-text"
+          onClick={() => {
+            inputRef.current.value = '';
+            onExit && onExit();
+          }}
+        >
+          {'\u2715'}
+        </button>
+      </div>
+    </div>
+  );
+};
