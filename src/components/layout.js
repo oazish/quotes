@@ -1,44 +1,29 @@
 import React from 'react';
 import { Link, withPrefix } from 'gatsby';
 import { Helmet } from 'react-helmet';
-import { IoMdSearch } from 'react-icons/io';
-import classNames from 'classnames';
-import $ from 'jquery';
 
+import { Search, SearchIcon } from './search';
 import logo from '../assets/images/logo.png';
 
-export default class Layout extends React.Component {
-  state = { searching: false };
+export default ({ children }) => (
+  <>
+    <Helmet
+      link={[{
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: withPrefix('/favicon.ico'),
+      }]}
+    />
+    <Navbar />
+    <div className="p-3">
+      {children}
+    </div>
+  </>
+);
 
-  // TODO(search-ux): When cancelling out of a search and then returning, old
-  //   results should be cleared. When clearing search input by backspace and
-  //   then typing something, search results prior to empty input should be
-  //   preserved.
-  render() {
-    return (
-      <>
-        <Helmet
-          link={[{
-            rel: 'icon',
-            type: 'image/x-icon',
-            href: withPrefix('/favicon.ico'),
-          }]}
-        />
-        <Navbar
-          searching={this.state.searching}
-          setSearchState={searching => this.setState({ searching })}
-        />
-        <div className="p-3">{this.props.children}</div>
-      </>
-    );
-  }
-}
-
-const Navbar = ({ searching, setSearchState }) => (
+const Navbar = () => (
   <nav
-    className="
-      navbar-expand-md navbar-light bg-light pl-3 d-flex flex-wrap
-    "
+    className="navbar-expand-md navbar-light bg-light pl-3 d-flex flex-wrap"
   >
     <div
       className="align-self-center flex-grow-1 flex-md-grow-0"
@@ -57,7 +42,7 @@ const Navbar = ({ searching, setSearchState }) => (
         <span className="navbar-toggler-icon" />
       </button>
     </div>
-    <Logo className="d-md-none p-1" onClick={() => setSearchState(false)} />
+    <Logo className="d-md-none p-1" />
     {/*
       * In collapsed mode, render empty element on right to balance out button
       * on left to center logo.
@@ -69,35 +54,22 @@ const Navbar = ({ searching, setSearchState }) => (
     >
       <Link
         to="/quotes/"
-        className={classNames({
-          'nav-item nav-link': true,
-          'flex-grow-1 invisible d-none d-md-block': searching,
-        })}
-        style={searching ? { flexBasis: 0 } : {}}
+        className="nav-item nav-link"
         activeClassName="active"
       >
         All Quotes
       </Link>
       <Link
         to="/categories/"
-        className={classNames({
-          'nav-item nav-link': true,
-          'd-none': searching,
-        })}
+        className="nav-item nav-link"
         activeClassName="active"
       >
         Quote Categories
       </Link>
-      <Logo
-        className="nav-item nav-link d-none d-md-block"
-        onClick={() => setSearchState(false)}
-      />
+      <Logo className="nav-item nav-link d-none d-md-block" />
       <Link
         to="/authors/rama/"
-        className={classNames({
-          'nav-item nav-link': true,
-          'd-none': searching,
-        })}
+        className="nav-item nav-link"
         activeClassName="active"
       >
         About Rama
@@ -105,37 +77,40 @@ const Navbar = ({ searching, setSearchState }) => (
       <button
         type="button"
         aria-label="Search"
-        className={classNames({
-          'd-none': searching,
-          'd-flex': !searching,
-          'btn btn-link nav-link': true,
-        })}
-        onClick={() => {
-          setSearchState(true);
-          // Expand navbar when searching.
-          // $('#navbarNav').collapse('show');
-          $('#navbarNav').addClass('show');
-        }}
+        className="btn btn-link nav-link"
+        data-target="#searchModal"
+        data-toggle="modal"
       >
         <SearchIcon className="d-none d-md-inline" />
         <span className="d-md-none">Search</span>
       </button>
-      {
-        // Conditionally render search bar using React rather than CSS so that
-        // <input> gets autofocused.
-        searching
-        ? (
-          <SearchBar
-            className="
-              flex-grow-1 w-auto ml-md-3 my-2 my-md-0 mr-3 align-self-stretch
-              align-self-md-auto
-            "
-            style={{ flexBasis: 0 }}
-            onExit={() => setSearchState(false)}
-          />
-        )
-        : null
-      }
+      {/* TODO: Refactor modal along with element ID into search.js. */}
+      <div
+        id="searchModal"
+        className="modal fade"
+        tabIndex="-1"
+        role="dialog"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-lg">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">Search</h5>
+              <button
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <Search />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </nav>
 );
@@ -149,41 +124,3 @@ const Logo = props => (
     <img src={logo} width="50" alt="Logo" />
   </Link>
 );
-
-const SearchIcon = props => <IoMdSearch size="22px" {...props} />;
-
-// TODO: Exit on Esc keypress, and focus blur, too.
-// TODO: Make sure "X" icon works on iOS, Android, Windows
-const SearchBar = ({ onExit, className, ...props }) => {
-  const inputRef = React.createRef();
-
-  return (
-    <div className={classNames('input-group', className)} {...props}>
-      <div className="input-group-prepend">
-        <span className="input-group-text">
-          <SearchIcon />
-        </span>
-      </div>
-      <input
-        ref={inputRef}
-        autoFocus={true}
-        type="text"
-        className="form-control"
-        placeholder="Search"
-        aria-label="Search"
-      />
-      <div className="input-group-append">
-        <button
-          type="button"
-          className="btn btn-outline-secondary input-group-text"
-          onClick={() => {
-            inputRef.current.value = '';
-            onExit && onExit();
-          }}
-        >
-          {'\u2715'}
-        </button>
-      </div>
-    </div>
-  );
-};

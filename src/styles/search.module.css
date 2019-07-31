@@ -1,0 +1,29 @@
+.hits mark {
+  padding: 0;
+}
+
+
+/* .hits > ::after {
+  content: '';
+  position: absolute;
+  height: 1px;
+  bottom: 0;
+  width: 100%;
+  transform: translateX(-50%);
+  left: 50%;
+  border-bottom: 1px solid lightgray;
+} */
+
+/* .hits > :last-child::after {
+  display: none;
+} */
+
+.hits > * {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hits > :last-child {
+  border: none;
+}
