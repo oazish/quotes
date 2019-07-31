@@ -3,12 +3,17 @@ import { Link, withPrefix } from 'gatsby';
 import { Helmet } from 'react-helmet';
 import { IoMdSearch } from 'react-icons/io';
 import classNames from 'classnames';
+import $ from 'jquery';
 
 import logo from '../assets/images/logo.png';
 
 export default class Layout extends React.Component {
   state = { searching: false };
 
+  // TODO(search-ux): When cancelling out of a search and then returning, old
+  //   results should be cleared. When clearing search input by backspace and
+  //   then typing something, search results prior to empty input should be
+  //   preserved.
   render() {
     return (
       <>
@@ -99,12 +104,18 @@ const Navbar = ({ searching, setSearchState }) => (
       </Link>
       <button
         type="button"
+        aria-label="Search"
         className={classNames({
           'd-none': searching,
           'd-flex': !searching,
           'btn btn-link nav-link': true,
         })}
-        onClick={() => setSearchState(true)}
+        onClick={() => {
+          setSearchState(true);
+          // Expand navbar when searching.
+          // $('#navbarNav').collapse('show');
+          $('#navbarNav').addClass('show');
+        }}
       >
         <SearchIcon className="d-none d-md-inline" />
         <span className="d-md-none">Search</span>
@@ -155,7 +166,7 @@ const SearchBar = ({ onExit, className, ...props }) => {
       </div>
       <input
         ref={inputRef}
-        autoFocus="true"
+        autoFocus={true}
         type="text"
         className="form-control"
         placeholder="Search"
