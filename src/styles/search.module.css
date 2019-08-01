@@ -1,27 +1,28 @@
+.heading {
+  background-color: #f0f3f7;
+  padding: .5rem;
+  margin: .5rem 0 0;
+}
+
+/* Remove default padding around highlighted search text. */
 .hits mark {
   padding: 0;
 }
 
-
-/* .hits > ::after {
-  content: '';
-  position: absolute;
-  height: 1px;
-  bottom: 0;
-  width: 100%;
-  transform: translateX(-50%);
-  left: 50%;
-  border-bottom: 1px solid lightgray;
-} */
-
-/* .hits > :last-child::after {
-  display: none;
-} */
-
 .hits > * {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  border-bottom: 1px solid #dee2e6;
+  display: block;
+  position: relative;
+  padding: .5rem .5rem;
+}
+
+.hits a:hover {
+  text-decoration: none;
+  background-color: #f8f9fa;
+}
+
+.hits a:hover mark {
+  background-color: inherit;
 }
 
 .hits > :last-child {

@@ -1,5 +1,6 @@
 const path = require('path');
-const kebabCase = require('lodash/kebabcase');
+
+const { categoryLink } = require('./src/utils/misc');
 
 const COLOR_LIGHTNESS_BUCKETS = (
   ({ numValues, lowest, highest }) => {
@@ -100,7 +101,7 @@ exports.createPages = async ({ graphql, actions }) => {
   });
 
   categories.forEach(category => createPage({
-    path: `/categories/${kebabCase(category)}/`,
+    path: categoryLink(category),
     component: categoryTemplate,
     context: { category },
   }));

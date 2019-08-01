@@ -1,3 +1,5 @@
+const { categoryLink } = require('./misc');
+
 const quotesQuery = `
   {
     quotes: allMarkdownRemark {
@@ -6,6 +8,16 @@ const quotesQuery = `
         fields {
           slug
         }
+      }
+    }
+  }
+`;
+
+const categoriesQuery = `
+  {
+    allMarkdownRemark(limit: 2000) {
+      group(field: frontmatter___categories) {
+        category: fieldValue
       }
     }
   }
@@ -20,6 +32,16 @@ const queries = [
       objectID: node.fields.slug,
     })),
     indexName: 'quotes',
+  },
+  {
+    query: categoriesQuery,
+    transformer: ({ data }) => data.allMarkdownRemark.group.map(
+      ({ category }) => ({
+        value: category,
+        // Object ID should be unique, so set it to category slug.
+        objectID: categoryLink(category),
+      })),
+    indexName: 'categories',
   },
 ];
 

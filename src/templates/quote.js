@@ -1,8 +1,8 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
-import kebabCase from 'lodash/kebabCase';
 
 import Layout from '../components/layout';
+import { categoryLink } from '../utils/misc';
 
 export default ({ data }) => {
   const quote = data.markdownRemark;
@@ -28,7 +28,7 @@ export default ({ data }) => {
           <Link
             className="badge badge-light mr-1"
             key={category}
-            to={`/categories/${kebabCase(category)}/`}
+            to={categoryLink(category)}
           >
             {category}
           </Link>
