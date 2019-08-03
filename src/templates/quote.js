@@ -11,32 +11,36 @@ export default ({ data }) => {
 
   return (
     <Layout>
-      <h1>
-        Quote
-      </h1>
-      <h2>
-        Author:
-        {' '}
-        <Link to={`/authors/${quote.frontmatter.author.id}/`}>
-          {quote.frontmatter.author.name}
-        </Link>
-      </h2>
-      <div style={{ width: 500, height: 300 }}>
-        <QuoteImage quote={quote} />
+      <div className="container">
+        <div className="row">
+          <div className="col-sm">
+            <div style={{ width: '100%', height: 300 }}>
+              <QuoteImage quote={quote} />
+            </div>
+            <blockquote class="blockquote mt-3">
+              <div dangerouslySetInnerHTML={{ __html: quote.html }} />
+              <footer class="blockquote-footer">
+                <Link to={`/authors/${quote.frontmatter.author.id}/`}>
+                  {quote.frontmatter.author.name}
+                </Link>
+              </footer>
+            </blockquote>
+            <hr />
+            <p>
+              {categories.map((category, i) =>
+                <Link
+                  className="badge badge-light mr-1"
+                  style={{ fontSize: '0.85rem' }}
+                  key={category}
+                  to={categoryLink(category)}
+                >
+                  {category}
+                </Link>
+              )}
+            </p>
+          </div>
+        </div>
       </div>
-      <div dangerouslySetInnerHTML={{ __html: quote.html }} />
-      <h3>Categories</h3>
-      <p>
-        {categories.map((category, i) =>
-          <Link
-            className="badge badge-light mr-1"
-            key={category}
-            to={categoryLink(category)}
-          >
-            {category}
-          </Link>
-        )}
-      </p>
     </Layout>
   );
 };

@@ -9,11 +9,12 @@ import QuotesList from '../components/quotes-list';
 
 export default ({ data }) => (
   <Layout>
-    <h1>
-      All Quotes
-    </h1>
-    <div className="mx-3">
-      <QuotesList markdownRemarkNodes={data.allMarkdownRemark.nodes} />
+    <div className="container">
+      <div className="row">
+        <div className="col-sm">
+          <QuotesList markdownRemarkNodes={data.allMarkdownRemark.nodes} />
+        </div>
+      </div>
     </div>
   </Layout>
 );

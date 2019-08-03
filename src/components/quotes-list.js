@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'gatsby';
-import { FaShareAltSquare } from 'react-icons/fa';
 
 import QuoteImage from './quote-image.js';
 
@@ -32,9 +31,6 @@ export default ({ markdownRemarkNodes: quotes }) => (
                 </div>
               </div>
             </Link>
-            <div className="col-auto d-flex align-items-center">
-              <FaShareAltSquare size="32px" color="darkgray" />
-            </div>
           </div>
         </div>
       )}

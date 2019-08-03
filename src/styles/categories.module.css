@@ -1,0 +1,18 @@
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.categories a {
+    width: 15rem;
+    height: 10rem;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(75%);
+    font-size: 1.2rem;
+}
+
+.categories a:hover {
+    filter: initial;
+    text-decoration: none;
+}
