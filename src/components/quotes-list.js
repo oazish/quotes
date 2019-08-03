@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'gatsby';
 import { FaShareAltSquare } from 'react-icons/fa';
 
+import QuoteImage from './quote-image.js';
+
 export default ({ markdownRemarkNodes: quotes }) => (
   <div className="d-flex flex-column">
       {quotes.map(quote =>
@@ -12,7 +14,12 @@ export default ({ markdownRemarkNodes: quotes }) => (
               to={quote.fields.slug}
               className="col d-flex p-0 text-decoration-none"
             >
-              <QuoteImage quote={quote} />
+              <div
+                className="d-inline-block"
+                style={{ width: '212px', height: '190px' }}
+              >
+                <QuoteImage quote={quote} />
+              </div>
               {/* Necessary to keep long quotes from expanding container. */}
               <div
                 className="mx-3 position-relative h-100 flex-fill"
@@ -31,27 +38,5 @@ export default ({ markdownRemarkNodes: quotes }) => (
           </div>
         </div>
       )}
-  </div>
-);
-
-const QuoteImage = ({ quote }) => (
-  <div className="d-inline-block">
-    <div
-      style={{
-        width: '212px',
-        height: '190px',
-        ...(
-          quote.image
-          ? {
-            backgroundImage: `url('${quote.image.publicURL}')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }
-          : {
-            backgroundColor: quote.color,
-          }
-        )
-      }}
-    />
   </div>
 );

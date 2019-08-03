@@ -2,13 +2,14 @@ const path = require('path');
 
 const { categoryLink } = require('./src/utils/misc');
 
-const COLOR_LIGHTNESS_BUCKETS = (
-  ({ numValues, lowest, highest }) => {
-    const interval = (highest - lowest) / (numValues - 1);
-    return Array.from(new Array(numValues))
-      .map((_, i) => lowest + i * interval);
-  }
-)({ numValues: 5, lowest: 30, highest: 78 });
+const COLORS = [
+  // Tibetan color scheme
+  '#F35F00',
+  '#b50047',
+  '#DF3A0A',
+  '#D88508',
+  '#FFB910',
+];
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
@@ -49,9 +50,22 @@ exports.createResolvers = ({ createResolvers }) => createResolvers({
         return result;
       },
     },
-    color: {
-      type: 'String!',
-      resolve: (source, args, context, info) => {
+    placeholder: {
+      type: `type Placeholder {
+        patternFile: File
+        foregroundColor: String!
+        backgroundColor: String!
+      }`,
+      resolve: async (source, args, context, info) => {
+        const patternFiles = await context.nodeModel.runQuery({
+          type: 'File',
+          query: {
+            filter: {
+              sourceInstanceName: { eq: 'images' },
+              relativeDirectory: { eq: 'patterns' },
+            },
+          },
+        });
         const toHash = source.fields.slug;
         const hash = Array.from(toHash).reduce(
           (hash, char) => {
@@ -60,10 +74,23 @@ exports.createResolvers = ({ createResolvers }) => createResolvers({
           },
           0,
         );
-        const numBuckets = COLOR_LIGHTNESS_BUCKETS.length;
-        // Mod the hash by the number of buckets, taking care of negatives.
-        const index = (hash % numBuckets + numBuckets) % numBuckets;
-        return `hsl(0, 0%, ${COLOR_LIGHTNESS_BUCKETS[index]}%)`;
+        // There are C foreground color choices and C - 1 background color
+        // choices (to keep foreground color different from background color).
+        const colorChoices = COLORS.length * (COLORS.length - 1);
+        const totalChoices = patternFiles.length * colorChoices;
+        // Add total choices to modded hash to eliminate negative values.
+        const moddedHash = (hash % totalChoices + totalChoices) % totalChoices;
+        const foregroundColorIndex = moddedHash % COLORS.length;
+        const backgroundColorIndex = moddedHash % (COLORS.length - 1);
+        return {
+          patternFile: patternFiles[Math.floor(moddedHash / colorChoices)],
+          foregroundColor: COLORS[foregroundColorIndex],
+          // If background color lands on or after the index for foreground
+          // color, shift the index by 1.
+          backgroundColor: COLORS[backgroundColorIndex + (
+            backgroundColorIndex >= foregroundColorIndex
+          )],
+        };
       },
     },
   },

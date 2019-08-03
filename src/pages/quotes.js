@@ -29,7 +29,13 @@ export const query = graphql`
         image {
           publicURL
         }
-        color
+        placeholder {
+          patternFile {
+            publicURL
+          }
+          foregroundColor
+          backgroundColor
+        }
       }
     }
   }

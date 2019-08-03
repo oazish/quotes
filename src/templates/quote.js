@@ -3,6 +3,7 @@ import { graphql, Link } from 'gatsby';
 
 import Layout from '../components/layout';
 import { categoryLink } from '../utils/misc';
+import QuoteImage from '../components/quote-image';
 
 export default ({ data }) => {
   const quote = data.markdownRemark;
@@ -20,7 +21,9 @@ export default ({ data }) => {
           {quote.frontmatter.author.name}
         </Link>
       </h2>
-      <QuoteImage quote={quote} />
+      <div style={{ width: 500, height: 300 }}>
+        <QuoteImage quote={quote} />
+      </div>
       <div dangerouslySetInnerHTML={{ __html: quote.html }} />
       <h3>Categories</h3>
       <p>
@@ -38,28 +41,6 @@ export default ({ data }) => {
   );
 };
 
-const QuoteImage = ({ quote }) => {
-  if (!quote.image) {
-    return (
-      <div
-        style={{
-          width: '600px',
-          height: '400px',
-          backgroundColor: quote.color,
-        }}
-      />
-    );
-  }
-
-  return (
-    <img
-      alt={quote.image.name}
-      src={quote.image.publicURL}
-      style={{ width: '600px' }}
-    />
-  );
-};
-
 export const query = graphql`
   query($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
@@ -74,7 +55,13 @@ export const query = graphql`
       image {
         publicURL
       }
-      color
+      placeholder {
+        patternFile {
+          publicURL
+        }
+        foregroundColor
+        backgroundColor
+      }
     }
   }
 `;
