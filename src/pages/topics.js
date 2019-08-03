@@ -13,7 +13,7 @@ export default ({ data }) => {
 
   return (
     <Layout>
-      <div className="container">
+      <div className={classNames('container', styles.container)}>
         <div className="row">
           <div className={classNames('col-sm', styles.topics)}>
             {data.allMarkdownRemark.group.map(({ topic }) =>

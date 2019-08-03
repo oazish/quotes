@@ -1,18 +1,25 @@
 .topics {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Let topics fit in two columns for a medium screen sizes. */
+@media (max-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
 }
 
 .topics a {
-    width: 15rem;
-    height: 10rem;
-    background-size: cover;
-    background-position: center;
-    filter: brightness(75%);
-    font-size: 1.2rem;
+  width: 15rem;
+  height: 10rem;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(75%);
+  font-size: 1.2rem;
 }
 
 .topics a:hover {
-    filter: initial;
-    text-decoration: none;
+  filter: initial;
+  text-decoration: none;
 }

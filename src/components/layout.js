@@ -57,14 +57,14 @@ const Navbar = () => (
         className="nav-item nav-link"
         activeClassName="active"
       >
-        All Quotes
+        Quotes
       </Link>
       <Link
         to="/topics/"
         className="nav-item nav-link"
         activeClassName="active"
       >
-        Quote Topics
+        Topics
       </Link>
       <Logo className="nav-item nav-link d-none d-md-block" />
       <Link
