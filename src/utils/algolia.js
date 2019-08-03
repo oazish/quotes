@@ -1,4 +1,4 @@
-const { categoryLink } = require('./misc');
+const { topicLink } = require('./misc');
 
 const quotesQuery = `
   {
@@ -13,11 +13,11 @@ const quotesQuery = `
   }
 `;
 
-const categoriesQuery = `
+const topicsQuery = `
   {
     allMarkdownRemark(limit: 2000) {
-      group(field: frontmatter___categories) {
-        category: fieldValue
+      group(field: frontmatter___topics) {
+        topic: fieldValue
       }
     }
   }
@@ -34,14 +34,14 @@ const queries = [
     indexName: 'quotes',
   },
   {
-    query: categoriesQuery,
+    query: topicsQuery,
     transformer: ({ data }) => data.allMarkdownRemark.group.map(
-      ({ category }) => ({
-        value: category,
-        // Object ID should be unique, so set it to category slug.
-        objectID: categoryLink(category),
+      ({ topic }) => ({
+        value: topic,
+        // Object ID should be unique, so set it to topic slug.
+        objectID: topicLink(topic),
       })),
-    indexName: 'categories',
+    indexName: 'topics',
   },
 ];
 

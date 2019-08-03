@@ -2,12 +2,12 @@ import React from 'react';
 import { graphql, Link } from 'gatsby';
 
 import Layout from '../components/layout';
-import { categoryLink } from '../utils/misc';
+import { topicLink } from '../utils/misc';
 import QuoteImage from '../components/quote-image';
 
 export default ({ data }) => {
   const quote = data.markdownRemark;
-  const categories = quote.frontmatter.categories;
+  const topics = quote.frontmatter.topics;
 
   return (
     <Layout>
@@ -27,14 +27,14 @@ export default ({ data }) => {
             </blockquote>
             <hr />
             <p>
-              {categories.map((category, i) =>
+              {topics.map((topic, i) =>
                 <Link
                   className="badge badge-light mr-1"
                   style={{ fontSize: '0.85rem' }}
-                  key={category}
-                  to={categoryLink(category)}
+                  key={topic}
+                  to={topicLink(topic)}
                 >
-                  {category}
+                  {topic}
                 </Link>
               )}
             </p>
@@ -54,7 +54,7 @@ export const query = graphql`
           id
           name
         }
-        categories
+        topics
       }
       image {
         publicURL

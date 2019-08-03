@@ -54,7 +54,7 @@ export const Search = () => {
       <SearchBox />
       <AllResults>
         <Index indexName="topics">
-          <IndexResults name="Categories">
+          <IndexResults name="Topics">
             <Hits />
           </IndexResults>
         </Index>

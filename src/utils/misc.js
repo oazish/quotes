@@ -1,3 +1,3 @@
 const kebabCase = require('lodash/kebabcase');
 
-exports.categoryLink = category => `/categories/${kebabCase(category)}/`;
+exports.topicLink = topic => `/topics/${kebabCase(topic)}/`;

@@ -1,6 +1,6 @@
 const path = require('path');
 
-const { categoryLink } = require('./src/utils/misc');
+const { topicLink } = require('./src/utils/misc');
 
 const COLORS = [
   // Tibetan color scheme
@@ -103,7 +103,7 @@ exports.createPages = async ({ graphql, actions }) => {
       allMarkdownRemark {
         nodes {
           frontmatter {
-            categories
+            topics
           }
           fields {
             slug
@@ -114,8 +114,8 @@ exports.createPages = async ({ graphql, actions }) => {
   `);
 
   const quoteTemplate = path.resolve('./src/templates/quote.js');
-  const categories = new Set();
-  const categoryTemplate = path.resolve('./src/templates/category.js');
+  const topics = new Set();
+  const topicTemplate = path.resolve('./src/templates/topic.js');
 
   data.allMarkdownRemark.nodes.forEach(node => {
     createPage({
@@ -123,13 +123,13 @@ exports.createPages = async ({ graphql, actions }) => {
       component: quoteTemplate,
       context: { slug: node.fields.slug },
     });
-    // Add the post categories into the set.
-    node.frontmatter.categories.forEach(category => categories.add(category));
+    // Add quote topics into the set.
+    node.frontmatter.topics.forEach(topic => topics.add(topic));
   });
 
-  categories.forEach(category => createPage({
-    path: categoryLink(category),
-    component: categoryTemplate,
-    context: { category },
+  topics.forEach(topic => createPage({
+    path: topicLink(topic),
+    component: topicTemplate,
+    context: { topic },
   }));
 };

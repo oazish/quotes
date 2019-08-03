@@ -60,11 +60,11 @@ const Navbar = () => (
         All Quotes
       </Link>
       <Link
-        to="/categories/"
+        to="/topics/"
         className="nav-item nav-link"
         activeClassName="active"
       >
-        Quote Categories
+        Quote Topics
       </Link>
       <Logo className="nav-item nav-link d-none d-md-block" />
       <Link

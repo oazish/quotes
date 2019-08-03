@@ -5,7 +5,7 @@ import Layout from '../../components/layout';
 import picture from '../../assets/images/authors/rama.jpg';
 
 // TODO: Deduplicate common three-column layout between author detail and
-//   category detail pages.
+//   topic detail pages.
 export default () => (
   <Layout>
     <div className="container-fluid">
@@ -22,7 +22,7 @@ export default () => (
             }}
           />
           <div className="font-weight-bold text-center">
-            Author: Rama, Dr. Frederick Lenz
+            Rama, Dr. Frederick Lenz
           </div>
         </div>
         <div className="col-12 mt-3 ml-2 col-lg-8 mt-lg-0">
@@ -73,21 +73,3 @@ const Biography = () => (
     </p>
   </>
 );
-
-// TODO: Add list of quotes by author when there are multiple authors on site.
-
-// export const query = graphql`
-//   {
-//     allMarkdownRemark(
-//       filter: { frontmatter: { author: { id: { eq: "rama" } } } }
-//     ) {
-//       nodes {
-//         frontmatter {
-//           author {
-//             name
-//           }
-//         }
-//       }
-//     }
-//   }
-// `;

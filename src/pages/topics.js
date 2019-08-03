@@ -3,11 +3,11 @@ import { Link, graphql } from 'gatsby';
 import classNames from 'classnames';
 
 import Layout from '../components/layout';
-import { categoryLink } from '../utils/misc';
-import styles from '../styles/categories.module.css';
+import { topicLink } from '../utils/misc';
+import styles from '../styles/topics.module.css';
 
 export default ({ data }) => {
-  const categoryImages = new Map(data.allFile.nodes.map(
+  const topicImages = new Map(data.allFile.nodes.map(
     ({ name, publicURL }) => [name, publicURL],
   ));
 
@@ -15,18 +15,18 @@ export default ({ data }) => {
     <Layout>
       <div className="container">
         <div className="row">
-          <div className={classNames('col-sm', styles.categories)}>
-            {data.allMarkdownRemark.group.map(({ category }) =>
+          <div className={classNames('col-sm', styles.topics)}>
+            {data.allMarkdownRemark.group.map(({ topic }) =>
               <Link
-                key={category}
+                key={topic}
                 className="d-flex m-2 align-items-center text-center"
-                to={categoryLink(category)}
+                to={topicLink(topic)}
                 style={{
-                  backgroundImage: `url('${categoryImages.get(category)}')`,
+                  backgroundImage: `url('${topicImages.get(topic)}')`,
                 }}
               >
                 <span className="w-100 bg-light px-2">
-                  {category}
+                  {topic}
                 </span>
               </Link>
             )}
@@ -40,14 +40,14 @@ export default ({ data }) => {
 export const query = graphql`
   {
     allMarkdownRemark(limit: 2000) {
-      group(field: frontmatter___categories) {
-        category: fieldValue
+      group(field: frontmatter___topics) {
+        topic: fieldValue
       }
     }
     allFile(
       filter: {
         sourceInstanceName: { eq: "images" }
-        relativeDirectory: { eq: "categories" }
+        relativeDirectory: { eq: "topics" }
       }
     ) {
       nodes {

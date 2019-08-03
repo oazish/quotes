@@ -1,9 +1,9 @@
-.categories {
+.topics {
     display: flex;
     flex-wrap: wrap;
 }
 
-.categories a {
+.topics a {
     width: 15rem;
     height: 10rem;
     background-size: cover;
@@ -12,7 +12,7 @@
     font-size: 1.2rem;
 }
 
-.categories a:hover {
+.topics a:hover {
     filter: initial;
     text-decoration: none;
 }

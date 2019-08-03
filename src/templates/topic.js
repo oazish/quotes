@@ -5,7 +5,7 @@ import Layout from '../components/layout';
 import QuotesList from '../components/quotes-list';
 
 // TODO: Deduplicate common three-column layout between author detail and
-//   category detail pages.
+//   topic detail pages.
 export default ({ pageContext, data }) => (
   <Layout>
     <div className="container-fluid">
@@ -13,7 +13,7 @@ export default ({ pageContext, data }) => (
         <div className="col-12 col-lg-auto">
           <div className="d-inline-block">
           {
-            // TODO: Use a default category color if image is missing.
+            // TODO: Use a default topic color if image is missing.
             !data.file ? null :
               <div
                 className="mb-3 mx-auto"
@@ -26,10 +26,10 @@ export default ({ pageContext, data }) => (
                 }}
               />
           }
-          {/* Prevents text from expanding wider than category image. */}
+          {/* Prevents text from expanding wider than topic image. */}
           <div className="d-flex font-weight-bold text-center">
             <div style={{ width: 0 }} className="flex-grow-1">
-              Category: {pageContext.category}
+              {pageContext.topic}
             </div>
           </div>
           </div>
@@ -46,10 +46,10 @@ export default ({ pageContext, data }) => (
 
 // TODO: Find way to dedupe pruneLength.
 export const query = graphql`
-  query($category: String) {
+  query($topic: String) {
     allMarkdownRemark(
       limit: 2000
-      filter: { frontmatter: { categories: { in: [$category] } } }
+      filter: { frontmatter: { topics: { in: [$topic] } } }
     ) {
       nodes {
         excerpt(pruneLength: 200)
@@ -70,8 +70,8 @@ export const query = graphql`
     }
     file(
       sourceInstanceName: { eq: "images" }
-      relativeDirectory: { eq: "categories" }
-      name: { eq: $category }
+      relativeDirectory: { eq: "topics" }
+      name: { eq: $topic }
     ) {
       publicURL
     }
