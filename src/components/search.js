@@ -11,7 +11,7 @@ import {
   connectHits,
   connectStateResults,
 } from 'react-instantsearch-dom';
-import { IoMdSearch } from 'react-icons/io';
+import { MdSearch } from 'react-icons/md';
 import classNames from 'classnames';
 import $ from 'jquery';
 
@@ -31,7 +31,7 @@ const searchClient = {
   )),
 };
 
-export const SearchIcon = props => <IoMdSearch size="22px" {...props} />;
+export const SearchIcon = props => <MdSearch size="24px" {...props} />;
 
 export const Search = () => {
   // The search components are heavy, and this code renders during build and
