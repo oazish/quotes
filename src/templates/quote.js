@@ -17,9 +17,9 @@ export default ({ data }) => {
             <div style={{ width: '100%', height: 300 }}>
               <QuoteImage quote={quote} />
             </div>
-            <blockquote class="blockquote mt-3">
+            <blockquote className="blockquote mt-3">
               <div dangerouslySetInnerHTML={{ __html: quote.html }} />
-              <footer class="blockquote-footer">
+              <footer className="blockquote-footer">
                 <Link to={`/authors/${quote.frontmatter.author.id}/`}>
                   {quote.frontmatter.author.name}
                 </Link>

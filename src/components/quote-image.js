@@ -35,7 +35,11 @@ const PatternPlaceholder = ({ placeholder }) => {
     >
       <defs>
         <mask id="mask" maskContentUnits="objectBoundingBox">
-          <image href={placeholder.patternFile.publicURL} width="1" />
+          <image
+            href={placeholder.patternFile.publicURL}
+            width="1"
+            height="1"
+          />
         </mask>
         <pattern
           id={patternId}
@@ -52,7 +56,11 @@ const PatternPlaceholder = ({ placeholder }) => {
           />
         </pattern>
       </defs>
-      <rect width="100%" height="100%" fill={`url(#${patternId})`} />
+      <rect
+        width="100%"
+        height="100%"
+        fill={`url(#${patternId})`}
+      />
     </svg>
   );
 };
