@@ -132,4 +132,14 @@ exports.createPages = async ({ graphql, actions }) => {
     component: topicTemplate,
     context: { topic },
   }));
+
+  if (process.env.NODE_ENV === 'development') {
+    const overlayTemplate = path.resolve('./src/templates/overlay.js');
+  
+    data.allMarkdownRemark.nodes.forEach(node => createPage({
+      path: `/overlay${node.fields.slug}`,
+      component: overlayTemplate,
+      context: { slug: node.fields.slug },
+    }));
+  }  
 };
