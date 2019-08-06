@@ -12,6 +12,10 @@ const algoliaPlugin = {
 
 module.exports = {
   pathPrefix: '/spiritual-quotes',
+  siteMetadata: {
+    // Base URL excludes `pathPrefix` and does not have a trailing slash.
+    baseUrl: 'https://oazish.github.io',
+  },
   plugins: [
     {
       resolve: 'gatsby-source-filesystem',

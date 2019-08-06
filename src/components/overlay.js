@@ -14,8 +14,8 @@ export default ({ quote }) => (
       className="blockquote position-absolute bg-light px-3 py-1"
       style={{
         color: 'dimgray',
-        opacity: 0.75,
-        fontSize: '2vw',
+        opacity: 0.7,
+        fontSize: '3vw',
       }}
     >
       <div dangerouslySetInnerHTML={{ __html: quote.html }} />

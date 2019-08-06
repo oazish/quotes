@@ -23,6 +23,11 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
         name: 'slug',
         value: `/quotes/${parent.name}/`,
       });
+      createNodeField({
+        node,
+        name: 'quoteId',
+        value: parent.name,
+      });
     }
   }
 };
@@ -107,6 +112,7 @@ exports.createPages = async ({ graphql, actions }) => {
           }
           fields {
             slug
+            quoteId
           }
         }
       }
@@ -121,7 +127,10 @@ exports.createPages = async ({ graphql, actions }) => {
     createPage({
       path: node.fields.slug,
       component: quoteTemplate,
-      context: { slug: node.fields.slug },
+      context: {
+        slug: node.fields.slug,
+        quoteId: node.fields.quoteId,
+      },
     });
     // Add quote topics into the set.
     node.frontmatter.topics.forEach(topic => topics.add(topic));
@@ -135,11 +144,41 @@ exports.createPages = async ({ graphql, actions }) => {
 
   if (process.env.NODE_ENV === 'development') {
     const overlayTemplate = path.resolve('./src/templates/overlay.js');
-  
+    // Fetch data for overlay page here rather than from the page itself to
+    // prevent warning about unused GraphQL query during `gatsby build`
+    // (`gatsby develop` is unaffected).
+    const { data } = await graphql(`
+      {
+        allMarkdownRemark {
+          nodes {
+            frontmatter {
+              author {
+                name
+              }
+            }
+            html
+            image {
+              publicURL
+            }
+            placeholder {
+              patternFile {
+                publicURL
+              }
+              foregroundColor
+              backgroundColor
+            }
+            fields {
+              slug
+            }
+          }
+        }
+      }
+    `);
+
     data.allMarkdownRemark.nodes.forEach(node => createPage({
       path: `/overlay${node.fields.slug}`,
       component: overlayTemplate,
-      context: { slug: node.fields.slug },
+      context: { quote: node },
     }));
-  }  
+  }
 };

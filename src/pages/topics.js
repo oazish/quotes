@@ -6,13 +6,13 @@ import Layout from '../components/layout';
 import { topicLink } from '../utils/misc';
 import styles from '../styles/topics.module.css';
 
-export default ({ data }) => {
+export default ({ location, data }) => {
   const topicImages = new Map(data.allFile.nodes.map(
     ({ name, publicURL }) => [name, publicURL],
   ));
 
   return (
-    <Layout>
+    <Layout location={location} title="Quote Topics">
       <div className={classNames('container', styles.container)}>
         <div className="row">
           <div className={classNames('col-sm', styles.topics)}>

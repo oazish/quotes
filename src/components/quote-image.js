@@ -23,6 +23,7 @@ export default ({ quote }) => (
               backgroundImage:
                 `url(${quote.placeholder.patternFile.publicURL})`,
               backgroundRepeat: 'repeat',
+              backgroundSize: '10rem',
               opacity: 0.1,
             }}
           />

@@ -5,12 +5,17 @@ import Layout from '../components/layout';
 import { topicLink } from '../utils/misc';
 import QuoteImage from '../components/quote-image';
 
-export default ({ data }) => {
-  const quote = data.markdownRemark;
-  const topics = quote.frontmatter.topics;
+export default ({ location, data }) => {
+  const { quote, shareableImage } = data;
+  const { topics, author } = quote.frontmatter
 
   return (
-    <Layout>
+    <Layout
+      location={location}
+      image={shareableImage.publicURL}
+      title={`Quote by ${author.name}`}
+      type="article"
+    >
       <div className="container">
         <div className="row">
           <div className="col-sm">
@@ -20,8 +25,8 @@ export default ({ data }) => {
             <blockquote className="blockquote mt-3">
               <div dangerouslySetInnerHTML={{ __html: quote.html }} />
               <footer className="blockquote-footer">
-                <Link to={`/authors/${quote.frontmatter.author.id}/`}>
-                  {quote.frontmatter.author.name}
+                <Link to={`/authors/${author.id}/`}>
+                  {author.name}
                 </Link>
               </footer>
             </blockquote>
@@ -46,8 +51,8 @@ export default ({ data }) => {
 };
 
 export const query = graphql`
-  query($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+  query($slug: String!, $quoteId: String!) {
+    quote: markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       frontmatter {
         author {
@@ -66,6 +71,13 @@ export const query = graphql`
         foregroundColor
         backgroundColor
       }
+    }
+    shareableImage: file(
+      sourceInstanceName: { eq: "images" }
+      relativeDirectory: { eq: "overlays/quotes" }
+      name: { eq: $quoteId }
+    ) {
+      publicURL
     }
   }
 `;

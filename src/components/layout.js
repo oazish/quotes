@@ -1,19 +1,58 @@
 import React from 'react';
-import { Link, withPrefix } from 'gatsby';
+import { Link, withPrefix, graphql, useStaticQuery } from 'gatsby';
 import { Helmet } from 'react-helmet';
 
 import { Search, SearchIcon } from './search';
 import logo from '../assets/images/logo.png';
 
-export default ({ children }) => (
-  <>
-    <Helmet
-      link={[{
-        rel: 'icon',
-        type: 'image/x-icon',
-        href: withPrefix('/favicon.ico'),
-      }]}
+export default props => {
+  const { site: { siteMetadata: { baseUrl } } } = useStaticQuery(graphql`
+    {
+      site {
+        siteMetadata {
+          baseUrl
+        }
+      }
+    }
+  `);
+  const { location, image, ...remainingProps } = props;
+  return (
+    <Layout
+      url={`${baseUrl}${location.pathname || '/'}`}
+      image={image && `${baseUrl}${image}`}
+      {...remainingProps}
     />
+  );
+};
+
+const Layout = ({
+  url,
+  title,
+  description,
+  image,
+  children,
+  type = 'website',
+}) => (
+  <>
+    <Helmet>
+      <title>{title}</title>
+      <meta name="description" content={description} />
+      <link rel="icon" type="image/x-icon" href={withPrefix('/favicon.ico')} />
+      <meta name="image" content={image} />
+      {/* OpenGraph tags for Facebook sharing. */}
+      <meta property="og:type" content={type} />
+      {url && <meta property="og:url" content={url} />}
+      {image && [
+        // Helmet does not support React fragments, so use list instead.
+        <meta property="og:image" content={image} />,
+        <meta property="og:image:width" content="1024" />,
+        <meta property="og:image:height" content="1024" />,
+      ]}
+      {title && <meta property="og:title" content={title} />}
+      {description && (
+        <meta property="og:description" content={description} />
+      )}
+    </Helmet>
     <Navbar />
     <div className="p-3">
       {children}

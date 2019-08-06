@@ -6,8 +6,12 @@ import picture from '../../assets/images/authors/rama.jpg';
 
 // TODO: Deduplicate common three-column layout between author detail and
 //   topic detail pages.
-export default () => (
-  <Layout>
+export default ({ location }) => (
+  <Layout
+    location={location}
+    title="About Rama, Frederick Lenz"
+    type="article"
+  >
     <div className="container-fluid">
       <div className="row">
         <div className="col-12 col-lg-auto">

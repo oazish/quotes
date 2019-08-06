@@ -6,8 +6,8 @@ import QuotesList from '../components/quotes-list';
 
 // TODO: Deduplicate common three-column layout between author detail and
 //   topic detail pages.
-export default ({ pageContext, data }) => (
-  <Layout>
+export default ({ location, pageContext, data }) => (
+  <Layout location={location} title={`${pageContext.topic} Quotes`}>
     <div className="container-fluid">
       <div className="row">
         <div className="col-12 col-lg-auto">
