@@ -36,21 +36,25 @@ const Layout = ({
   <>
     <Helmet>
       <title>{title}</title>
-      <meta name="description" content={description} />
       <link rel="icon" type="image/x-icon" href={withPrefix('/favicon.ico')} />
-      <meta name="image" content={image} />
+      <meta key="description" name="description" content={description} />
+      <meta key="image" name="image" content={image} />
       {/* OpenGraph tags for Facebook sharing. */}
-      <meta property="og:type" content={type} />
-      {url && <meta property="og:url" content={url} />}
+      <meta key="type" property="og:type" content={type} />
+      {url && <meta key="ogUrl" property="og:url" content={url} />}
       {image && [
         // Helmet does not support React fragments, so use list instead.
-        <meta property="og:image" content={image} />,
-        <meta property="og:image:width" content="1024" />,
-        <meta property="og:image:height" content="1024" />,
+        <meta key="ogImage" property="og:image" content={image} />,
+        <meta key="ogImageWidth" property="og:image:width" content="1024" />,
+        <meta key="ogImageHeight" property="og:image:height" content="1024" />,
       ]}
-      {title && <meta property="og:title" content={title} />}
+      {title && <meta key="ogTitle" property="og:title" content={title} />}
       {description && (
-        <meta property="og:description" content={description} />
+        <meta
+          key="ogDescription"
+          property="og:description"
+          content={description}
+        />
       )}
     </Helmet>
     <Navbar />

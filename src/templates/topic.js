@@ -35,7 +35,7 @@ export default ({ location, pageContext, data }) => (
           </div>
         </div>
         <div className="col-12 mt-3 ml-2 col-lg-8 mt-lg-0">
-          <QuotesList markdownRemarkNodes={data.allMarkdownRemark.nodes} />
+          <QuotesList quotes={data.allMarkdownRemark.nodes} />
         </div>
         <div className="col-2">
         </div>

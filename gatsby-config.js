@@ -11,6 +11,7 @@ const algoliaPlugin = {
 };
 
 module.exports = {
+  // Must start with a slash.
   pathPrefix: '/spiritual-quotes',
   siteMetadata: {
     // Base URL excludes `pathPrefix` and does not have a trailing slash.

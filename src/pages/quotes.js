@@ -12,7 +12,7 @@ export default ({ location, data }) => (
     <div className="container">
       <div className="row">
         <div className="col-sm">
-          <QuotesList markdownRemarkNodes={data.allMarkdownRemark.nodes} />
+          <QuotesList quotes={data.allMarkdownRemark.nodes} />
         </div>
       </div>
     </div>

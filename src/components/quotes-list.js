@@ -1,12 +1,36 @@
 import React from 'react';
-import { Link } from 'gatsby';
+import { Link, graphql, useStaticQuery } from 'gatsby';
 import classNames from 'classnames';
 import { MdShare } from 'react-icons/md';
 
 import QuoteImage from './quote-image.js';
 import styles from '../styles/quotes-list.module.css';
 
-export default ({ markdownRemarkNodes: quotes }) => (
+export default ({ quotes }) => {
+  const {
+    site: {
+      siteMetadata: { baseUrl },
+      pathPrefix,
+    },
+  } = useStaticQuery(graphql`
+    {
+      site {
+        siteMetadata {
+          baseUrl
+        }
+        pathPrefix
+      }
+    }
+  `);
+  return (
+    <QuotesList
+      baseUrl={`${baseUrl}${pathPrefix}`}
+      quotes={quotes}
+    />
+  );
+};
+
+const QuotesList = ({ baseUrl, quotes }) => (
   <div className="d-flex flex-column">
     {quotes.map(quote =>
       <div key={quote.fields.slug} className="container-fluid p-0">
@@ -30,6 +54,14 @@ export default ({ markdownRemarkNodes: quotes }) => (
               onClick={e => {
                 e.preventDefault();
                 e.stopPropagation();
+                window.open(
+                  'https://www.facebook.com/sharer/sharer.php?u=' +
+                    window.encodeURIComponent(
+                      `${baseUrl}${quote.fields.slug}`,
+                    ),
+                  'pop',
+                  'width=600, height=400, scrollbars=no',
+                );
               }}
             >
               <MdShare size="24px" />

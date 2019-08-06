@@ -2,8 +2,6 @@ const puppeteer = require('puppeteer');
 const fs = require('fs').promises;
 const path = require('path');
 const url = require('url');
-const util = require('util');
-const { Writable, Readable, Transform, pipeline } = require('stream');
 
 GATSBY_DEVELOP_URL = 'http://localhost:8000';
 
@@ -15,7 +13,6 @@ GATSBY_DEVELOP_URL = 'http://localhost:8000';
 
   for (quoteFile of await fs.readdir(quotesDir)) {
     const quoteId = quoteFile.split('.')[0];
-    // const quoteId = '3';
     const outputFile = path.join(
       __dirname,
       `../src/assets/images/overlays/quotes/${quoteId}.jpg`,
