@@ -18,9 +18,3 @@
   bottom: 0;
   left: 0;
 }
-
-.shareIcon {
-  display: flex;
-  align-items: center;
-  color: dimgray;
-}

@@ -1,36 +1,12 @@
 import React from 'react';
-import { Link, graphql, useStaticQuery } from 'gatsby';
+import { Link } from 'gatsby';
 import classNames from 'classnames';
-import { MdShare } from 'react-icons/md';
 
-import QuoteImage from './quote-image.js';
+import QuoteImage from './quote-image';
+import ShareButton from './share-button';
 import styles from '../styles/quotes-list.module.css';
 
-export default ({ quotes }) => {
-  const {
-    site: {
-      siteMetadata: { baseUrl },
-      pathPrefix,
-    },
-  } = useStaticQuery(graphql`
-    {
-      site {
-        siteMetadata {
-          baseUrl
-        }
-        pathPrefix
-      }
-    }
-  `);
-  return (
-    <QuotesList
-      baseUrl={`${baseUrl}${pathPrefix}`}
-      quotes={quotes}
-    />
-  );
-};
-
-const QuotesList = ({ baseUrl, quotes }) => (
+export default ({ quotes }) => (
   <div className="d-flex flex-column">
     {quotes.map(quote =>
       <div key={quote.fields.slug} className="container-fluid p-0">
@@ -49,23 +25,10 @@ const QuotesList = ({ baseUrl, quotes }) => (
                 {quote.excerpt}
               </div>
             </div>
-            <button
-              className={classNames('btn btn-link col-auto', styles.shareIcon)}
-              onClick={e => {
-                e.preventDefault();
-                e.stopPropagation();
-                window.open(
-                  'https://www.facebook.com/sharer/sharer.php?u=' +
-                    window.encodeURIComponent(
-                      `${baseUrl}${quote.fields.slug}`,
-                    ),
-                  'pop',
-                  'width=600, height=400, scrollbars=no',
-                );
-              }}
-            >
-              <MdShare size="24px" />
-            </button>
+            <ShareButton
+              shareUrl={quote.fields.slug}
+              className="col-auto d-flex align-items-center"
+            />
           </Link>
         </div>
       </div>

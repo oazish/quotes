@@ -1,4 +1,4 @@
-const { topicLink } = require('./misc');
+const { topicLink } = require('./shared');
 
 const quotesQuery = `
   {

@@ -2,25 +2,38 @@ import React from 'react';
 import { graphql, Link } from 'gatsby';
 
 import Layout from '../components/layout';
-import { topicLink } from '../utils/misc';
+import ShareButton from '../components/share-button';
+import { topicLink } from '../utils/shared';
 import QuoteImage from '../components/quote-image';
 
 export default ({ location, data }) => {
   const { quote, shareableImage } = data;
-  const { topics, author } = quote.frontmatter
+  const { topics, author } = quote.frontmatter;
 
   return (
     <Layout
       location={location}
-      image={shareableImage.publicURL}
       title={`Quote by ${author.name}`}
       type="article"
+      image={shareableImage.publicURL}
+      imageWidth={1024}
+      imageHeight={1024}
     >
       <div className="container">
         <div className="row">
           <div className="col-sm">
-            <div style={{ width: '100%', height: 300 }}>
+            <div className="w-100 position-relative" style={{ height: 300 }}>
               <QuoteImage quote={quote} />
+              <ShareButton
+                shareUrl={location.pathname}
+                className="position-absolute"
+                style={{
+                  left: '100%',
+                  top: '50%',
+                  // Bump up so that middle (rather than top) is at 50%.
+                  transform: 'translate(0, -50%)',
+                }}
+              />
             </div>
             <blockquote className="blockquote mt-3">
               <div dangerouslySetInnerHTML={{ __html: quote.html }} />

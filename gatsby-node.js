@@ -1,6 +1,6 @@
 const path = require('path');
 
-const { topicLink } = require('./src/utils/misc');
+const { topicLink } = require('./src/utils/shared');
 
 const COLORS = [
   // Tibetan color scheme

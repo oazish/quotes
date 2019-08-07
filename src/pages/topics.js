@@ -3,7 +3,7 @@ import { Link, graphql } from 'gatsby';
 import classNames from 'classnames';
 
 import Layout from '../components/layout';
-import { topicLink } from '../utils/misc';
+import { topicLink } from '../utils/shared';
 import styles from '../styles/topics.module.css';
 
 export default ({ location, data }) => {

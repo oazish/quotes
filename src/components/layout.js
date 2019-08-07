@@ -1,61 +1,23 @@
 import React from 'react';
-import { Link, withPrefix, graphql, useStaticQuery } from 'gatsby';
+import { Link, withPrefix } from 'gatsby';
 import { Helmet } from 'react-helmet';
 
 import { Search, SearchIcon } from './search';
 import logo from '../assets/images/logo.png';
+import { getAbsoluteUrl } from '../utils/misc';
 
-export default props => {
-  const { site: { siteMetadata: { baseUrl } } } = useStaticQuery(graphql`
-    {
-      site {
-        siteMetadata {
-          baseUrl
-        }
-      }
-    }
-  `);
-  const { location, image, ...remainingProps } = props;
-  return (
-    <Layout
-      url={`${baseUrl}${location.pathname || '/'}`}
-      image={image && `${baseUrl}${image}`}
-      {...remainingProps}
-    />
-  );
-};
-
-const Layout = ({
-  url,
-  title,
-  description,
-  image,
-  children,
-  type = 'website',
-}) => (
+export default ({ location, image, children, ...remainingProps }) => (
   <>
     <Helmet>
-      <title>{title}</title>
-      <link rel="icon" type="image/x-icon" href={withPrefix('/favicon.ico')} />
-      <meta key="description" name="description" content={description} />
-      <meta key="image" name="image" content={image} />
-      {/* OpenGraph tags for Facebook sharing. */}
-      <meta key="type" property="og:type" content={type} />
-      {url && <meta key="ogUrl" property="og:url" content={url} />}
-      {image && [
-        // Helmet does not support React fragments, so use list instead.
-        <meta key="ogImage" property="og:image" content={image} />,
-        <meta key="ogImageWidth" property="og:image:width" content="1024" />,
-        <meta key="ogImageHeight" property="og:image:height" content="1024" />,
-      ]}
-      {title && <meta key="ogTitle" property="og:title" content={title} />}
-      {description && (
-        <meta
-          key="ogDescription"
-          property="og:description"
-          content={description}
-        />
-      )}
+      {
+        // Call `Head` in this weird way rather than `<Head {...props} />`
+        // because React-Helmet does not support the latter.
+        Head({
+          url: getAbsoluteUrl(location.pathname),
+          image: image && getAbsoluteUrl(image),
+          ...remainingProps,
+        })
+      }
     </Helmet>
     <Navbar />
     <div className="p-3">
@@ -167,3 +129,38 @@ const Logo = props => (
     <img src={logo} width="50" alt="Logo" />
   </Link>
 );
+
+const Head = ({
+  url,
+  title,
+  description,
+  image,
+  imageWidth,
+  imageHeight,
+  type = 'website',
+}) => {
+  const metaTags = {
+    description,
+    // OpenGraph tags for Facebook sharing.
+    'og:type': type,
+    'og:url': url,
+    'og:title': title,
+    'og:description': description,
+    'og:image': image,
+    'og:image:width': imageWidth,
+    'og:image:height': imageHeight,
+  };
+  // Helmet does not support React fragments, so return list instead.
+  return [
+    <title key="title">{title}</title>,
+    <link
+      key="icon"
+      rel="icon"
+      type="image/x-icon"
+      href={withPrefix('/favicon.ico')}
+    />,
+    ...Object.entries(metaTags).map(([name, content]) =>
+      content ? <meta key={name} name={name} content={content} /> : null,
+    ),
+  ];
+};
