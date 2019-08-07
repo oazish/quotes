@@ -9,9 +9,9 @@ import QuotesList from '../components/quotes-list';
 
 export default ({ location, data }) => (
   <Layout location={location} title="All Quotes">
-    <div className="container">
+    <div className="container-fluid">
       <div className="row">
-        <div className="col-sm">
+        <div className="col-12 col-lg-8 mx-auto">
           <QuotesList quotes={data.allMarkdownRemark.nodes} />
         </div>
       </div>

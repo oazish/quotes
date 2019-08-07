@@ -58,7 +58,9 @@ const Biography = () => (
       self—when he was only three years old. The experience returned when he
       was 19, leading him to his spiritual adventure and transformation in
       Nepal, described in his 1995 best-selling book{' '}
-      <a href={SURFING_HIMALAYAS_URL}>Surfing the Himalayas</a>.
+      <a href={SURFING_HIMALAYAS_URL} style={{ color: '#007bff' }}>
+        Surfing the Himalayas
+      </a>.
 
       There, he encountered a Tibetan Buddhist monk who predicted that Rama
       would revive an ancient lineage of knowledge and enlightenment and help

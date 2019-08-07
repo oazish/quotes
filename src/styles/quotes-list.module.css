@@ -1,5 +1,17 @@
+.quote {
+  box-shadow:
+    0 1px 1px 0 rgba(60, 64, 67, .08),
+    0 1px 3px 1px rgba(60,64,67,.16);
+  transition: box-shadow 135ms cubic-bezier(.4, 0, .2, 1);
+  border-radius: 4px;
+  /* Make child obey this element's border-radius. */
+  overflow: hidden;
+}
+
 .quote:hover {
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 1px 3px 1px rgba(60, 64, 67, .2),
+    0 2px 8px 4px rgba(60, 64, 67, .1);
 }
 
 .quoteImage {
