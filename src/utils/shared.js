@@ -7,3 +7,8 @@
 const kebabCase = require('lodash/kebabcase');
 
 exports.topicLink = topic => `/topics/${kebabCase(topic)}/`;
+
+exports.SHAREABLE_IMAGE_DIMENSIONS = Object.freeze({
+  width: 1536,
+  height: 1536,
+});

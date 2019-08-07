@@ -5,6 +5,7 @@ import Layout from '../components/layout';
 import ShareButton from '../components/share-button';
 import { topicLink } from '../utils/shared';
 import QuoteImage from '../components/quote-image';
+import { SHAREABLE_IMAGE_DIMENSIONS } from '../utils/shared';
 
 export default ({ location, data }) => {
   const { quote, shareableImage } = data;
@@ -16,8 +17,8 @@ export default ({ location, data }) => {
       title={`Quote by ${author.name}`}
       type="article"
       image={shareableImage.publicURL}
-      imageWidth={1024}
-      imageHeight={1024}
+      imageWidth={SHAREABLE_IMAGE_DIMENSIONS.width}
+      imageHeight={SHAREABLE_IMAGE_DIMENSIONS.height}
     >
       <div className="container">
         <div className="row">
