@@ -160,7 +160,13 @@ const Head = ({
       href={withPrefix('/favicon.ico')}
     />,
     ...Object.entries(metaTags).map(([name, content]) =>
-      content ? <meta key={name} name={name} content={content} /> : null,
+      content
+        ? (
+          // Use `name` and `property` attributes so that social platform
+          // scrapers (ahem, Facebook!) don't complain.
+          <meta key={name} name={name} property={name} content={content} />
+        )
+        : null,
     ),
   ];
 };
