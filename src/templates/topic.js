@@ -1,43 +1,54 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import classNames from 'classnames';
 
 import Layout from '../components/layout';
 import QuotesList from '../components/quotes-list';
+import styles from '../styles/topic.module.css';
 
 // TODO: Deduplicate common three-column layout between author detail and
 //   topic detail pages.
 export default ({ location, pageContext, data }) => (
-  <Layout location={location} title={`${pageContext.topic} Quotes`}>
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-12 col-lg-auto">
-          <div className="d-inline-block">
-          {
-            // TODO: Use a default topic color if image is missing.
-            !data.file ? null :
-              <div
-                className="mb-3 mx-auto"
-                style={{
-                  backgroundImage: `url('${data.file.publicURL}')`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  width: '210px',
-                  height: '210px',
-                }}
-              />
-          }
-          {/* Prevents text from expanding wider than topic image. */}
-          <div className="d-flex font-weight-bold text-center">
-            <div style={{ width: 0 }} className="flex-grow-1">
-              {pageContext.topic}
-            </div>
+  <Layout
+    location={location}
+    title={`${pageContext.topic} Quotes`}
+    // TODO: And if it's null?
+    background={
+      <div
+        className="h-100 w-100 position-fixed"
+        style={{
+          background: `url('${data.file.publicURL}') center center / cover`,
+          backgroundPosition: `0 100%`,
+        }}
+      />
+    }
+  >
+    <div className={styles.topic}>
+      <h1>
+        {pageContext.topic}
+      </h1>
+      {/* Hack to force white background for topics with short lists of
+        * quotes */}
+      <div
+        style={{
+          backgroundColor: 'white',
+          width: '100vw',
+          height: '100vh',
+          marginBottom: '-100vh',
+        }}
+      />
+      <div className="container-fluid" style={{ backgroundColor: 'white' }}>
+        <div className="row">
+          <div
+            className={
+              classNames(
+                'col-12 mx-auto mt-3 ml-2 col-lg-8 mt-lg-0',
+                styles.quotesList,
+              )
+            }
+          >
+            <QuotesList quotes={data.allMarkdownRemark.nodes} />
           </div>
-          </div>
-        </div>
-        <div className="col-12 mt-3 ml-2 col-lg-8 mt-lg-0">
-          <QuotesList quotes={data.allMarkdownRemark.nodes} />
-        </div>
-        <div className="col-2">
         </div>
       </div>
     </div>

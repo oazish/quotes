@@ -1,11 +1,13 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
+import classNames from 'classnames';
 
 import Layout from '../components/layout';
 import ShareButton from '../components/share-button';
 import { topicLink } from '../utils/shared';
 import QuoteImage from '../components/quote-image';
 import { SHAREABLE_IMAGE_DIMENSIONS } from '../utils/shared';
+import styles from '../styles/quote.module.css';
 
 export default ({ location, data }) => {
   const { quote, shareableImage } = data;
@@ -19,44 +21,55 @@ export default ({ location, data }) => {
       image={shareableImage.publicURL}
       imageWidth={SHAREABLE_IMAGE_DIMENSIONS.width}
       imageHeight={SHAREABLE_IMAGE_DIMENSIONS.height}
+      background={
+        <div
+          className="h-100"
+          style={{
+            backgroundColor: 'black',
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100%',
+          }}
+        >
+          <div className="h-100" style={{ opacity: 1 }}>
+            <QuoteImage quote={quote} />
+          </div>
+        </div>
+      }
     >
       <div className="container">
         <div className="row">
-          <div className="col-sm">
-            <div className="w-100 position-relative" style={{ height: 300 }}>
-              <QuoteImage quote={quote} />
-              <ShareButton
-                shareUrl={location.pathname}
-                className="position-absolute"
-                style={{
-                  left: '100%',
-                  top: '50%',
-                  // Bump up so that middle (rather than top) is at 50%.
-                  transform: 'translate(0, -50%)',
-                }}
-              />
-            </div>
-            <blockquote className="blockquote mt-3">
+          <div
+            className={classNames(
+              'col-12 col-md-12 col-lg-8 mx-auto mt-2 mb-3 py-2',
+              styles.quote,
+            )}
+          >
+            <blockquote className="blockquote">
               <div dangerouslySetInnerHTML={{ __html: quote.html }} />
               <footer className="blockquote-footer">
                 <Link to={`/authors/${author.id}/`}>
                   {author.name}
                 </Link>
+                <ShareButton
+                  className={styles.shareButton}
+                  shareUrl={location.pathname}
+                />
               </footer>
             </blockquote>
             <hr />
-            <p>
+            <div className={styles.topics}>
               {topics.map((topic, i) =>
                 <Link
-                  className="badge badge-light mr-1"
-                  style={{ fontSize: '0.85rem' }}
+                  className="badge badge-dark mr-1"
                   key={topic}
                   to={topicLink(topic)}
                 >
                   {topic}
                 </Link>
               )}
-            </p>
+            </div>
           </div>
         </div>
       </div>

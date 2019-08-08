@@ -12,7 +12,7 @@ export default ({ location }) => (
     title="About Rama, Frederick Lenz"
     type="article"
   >
-    <div className="container-fluid">
+    <div className="container-fluid p-3">
       <div className="row">
         <div className="col-12 col-lg-auto">
           <div

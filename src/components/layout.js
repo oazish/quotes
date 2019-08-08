@@ -6,29 +6,81 @@ import { Search, SearchIcon } from './search';
 import logo from '../assets/images/logo.png';
 import { getAbsoluteUrl } from '../utils/misc';
 
-export default ({ location, image, children, ...remainingProps }) => (
+export default ({
+  background,
+  location,
+  image,
+  children,
+  ...remainingProps,
+}) => (
   <>
-    <Helmet>
-      {
-        // Call `Head` in this weird way rather than `<Head {...props} />`
-        // because React-Helmet does not support the latter.
-        Head({
-          url: getAbsoluteUrl(location.pathname),
-          image: image && getAbsoluteUrl(image),
-          ...remainingProps,
-        })
-      }
-    </Helmet>
-    <Navbar />
-    <div className="p-3">
-      {children}
+    <Head
+      url={getAbsoluteUrl(location.pathname)}
+      image={image && getAbsoluteUrl(image)}
+      {...remainingProps}
+    />
+    <div>
+      <div
+        className="position-absolute w-100 h-100"
+        style={{ left: 0, top: 0, zIndex: -1 }}
+      >
+        {background}
+      </div>
+      <div className="position-relative">
+        <div>
+          {/* Could be converted to ::after pseudo-element */}
+          <div
+            className="position-absolute w-100 h-100"
+            style={{
+              left: 0,
+              top: 0,
+              background:
+                'linear-gradient(hsla(0, 0%, 20%, 0.7), transparent)',
+              zIndex: -1,
+            }}
+          />
+          <div className="mb-2">
+            <Navbar />
+          </div>
+        </div>
+      </div>
+      <div>
+        {children}
+      </div>
+      {/* TODO: Refactor modal along with element ID into search.js. */}
+      <div
+        id="searchModal"
+        className="modal fade"
+        tabIndex="-1"
+        role="dialog"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-lg">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">Search</h5>
+              <button
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <Search />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </>
 );
 
 const Navbar = () => (
   <nav
-    className="navbar-expand-md navbar-light bg-light pl-3 d-flex flex-wrap"
+    className="navbar-expand-md navbar-dark pl-2 pl-md-0 d-flex flex-wrap"
   >
     <div
       className="align-self-center flex-grow-1 flex-md-grow-0"
@@ -43,6 +95,7 @@ const Navbar = () => (
         aria-controls="navbarNav"
         aria-expanded="false"
         aria-label="Toggle navigation"
+        style={{ border: '1px solid rgba(255, 255, 255, 0.25)' }}
       >
         <span className="navbar-toggler-icon" />
       </button>
@@ -89,33 +142,6 @@ const Navbar = () => (
         <SearchIcon className="d-none d-md-inline" />
         <span className="d-md-none">Search</span>
       </button>
-      {/* TODO: Refactor modal along with element ID into search.js. */}
-      <div
-        id="searchModal"
-        className="modal fade"
-        tabIndex="-1"
-        role="dialog"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-lg">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title">Search</h5>
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              <Search />
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </nav>
 );
@@ -150,23 +176,25 @@ const Head = ({
     'og:image:width': imageWidth,
     'og:image:height': imageHeight,
   };
-  // Helmet does not support React fragments, so return list instead.
-  return [
-    <title key="title">{title}</title>,
-    <link
-      key="icon"
-      rel="icon"
-      type="image/x-icon"
-      href={withPrefix('/favicon.ico')}
-    />,
-    ...Object.entries(metaTags).map(([name, content]) =>
-      content
-        ? (
-          // Use `name` and `property` attributes so that social platform
-          // scrapers (ahem, Facebook!) don't complain.
-          <meta key={name} name={name} property={name} content={content} />
-        )
-        : null,
-    ),
-  ];
+  return (
+    <Helmet>
+      <title>{title}</title>
+      <link
+        rel="icon"
+        type="image/x-icon"
+        href={withPrefix('/favicon.ico')}
+      />
+      {
+        Object.entries(metaTags).map(([name, content]) =>
+          content
+            ? (
+              // Use `name` and `property` attributes so that social platform
+              // scrapers (ahem, Facebook!) don't complain.
+              <meta key={name} name={name} property={name} content={content} />
+            )
+            : null,
+          )
+      }
+    </Helmet>
+  );
 };

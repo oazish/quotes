@@ -6,11 +6,11 @@ export default ({ quote }) => (
     style={
       quote.image
         ? {
-          backgroundImage: `url('${quote.image.publicURL}')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          background: `url('${quote.image.publicURL}') center / cover`,
         }
-        : { backgroundColor: quote.placeholder.backgroundColor }
+        : {
+          background: quote.placeholder.backgroundColor,
+        }
     }
   >
     {
