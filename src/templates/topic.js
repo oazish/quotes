@@ -25,7 +25,7 @@ export default ({ location, pageContext, data }) => (
   >
     <div className={styles.topic}>
       <h1>
-        {pageContext.topic}
+        <span>{pageContext.topic}</span>
       </h1>
       {/* Hack to force white background for topics with short lists of
         * quotes */}

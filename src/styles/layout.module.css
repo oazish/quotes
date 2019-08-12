@@ -1,0 +1,9 @@
+.header {
+  position: relative;
+  background: linear-gradient(rgb(0, 0, 0, 0.4), rgb(0, 0, 0, 0.1));
+}
+
+/* Use higher CSS specificity to override link color */
+.header :global(.navbar-nav) :global(.nav-link) {
+  color: white;
+}

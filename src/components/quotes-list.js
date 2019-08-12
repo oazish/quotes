@@ -9,7 +9,7 @@ import styles from '../styles/quotes-list.module.css';
 export default ({ quotes }) => (
   <div className="d-flex mt-2 flex-column">
     {quotes.map(quote =>
-      <div key={quote.fields.slug} className="container-fluid p-0">
+      <div key={quote.fields.slug} className="container-fluid">
         <div className={classNames('row mb-2 border', styles.quote)}>
           <Link
             key={quote.fields.slug}

@@ -7,7 +7,7 @@ export default ({ location }) => (
     <div className="container">
       <div className="row">
         <div className="col-sm mx-auto">
-          <h1>Spiritual Quotes Home</h1>
+          <h1 className="mb-3">Spiritual Quotes Home</h1>
           <p>Welcome to spiritual quotes!</p>
         </div>
       </div>

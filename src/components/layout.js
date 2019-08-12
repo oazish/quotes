@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet';
 import { Search, SearchIcon } from './search';
 import logo from '../assets/images/logo.png';
 import { getAbsoluteUrl } from '../utils/misc';
+import styles from '../styles/layout.module.css';
 
 export default ({
   background,
@@ -19,7 +20,7 @@ export default ({
       image={image && getAbsoluteUrl(image)}
       {...remainingProps}
     />
-    <div>
+    <div className={styles.layout}>
       <div
         className="position-absolute w-100 h-100"
         style={{ left: 0, top: 0, zIndex: -1 }}
@@ -100,7 +101,7 @@ const Navbar = () => (
         <span className="navbar-toggler-icon" />
       </button>
     </div>
-    <Logo className="d-md-none p-1" />
+    <Logo className="nav-item nav-link d-md-none p-1" />
     {/*
       * In collapsed mode, render empty element on right to balance out button
       * on left to center logo.

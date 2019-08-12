@@ -13,23 +13,26 @@ export default ({ location, data }) => {
 
   return (
     <Layout location={location} title="Quote Topics">
-      <div className={classNames('container', styles.container)}>
+      <div className={classNames('container-fluid', styles.container)}>
         <div className="row">
-          <div className={classNames('col-sm', styles.topics)}>
-            {data.allMarkdownRemark.group.map(({ topic }) =>
-              <Link
-                key={topic}
-                className="d-flex m-2 align-items-center text-center"
-                to={topicLink(topic)}
-                style={{
-                  backgroundImage: `url('${topicImages.get(topic)}')`,
-                }}
-              >
-                <span className="w-100 bg-light px-2">
-                  {topic}
-                </span>
-              </Link>
-            )}
+          <div className="col-12 col-md-10 col-lg-8 mx-auto">
+            <h1 className="mb-3">Topics</h1>
+            <div className={styles.topics}>
+              {data.allMarkdownRemark.group.map(({ topic }) =>
+                <Link
+                  key={topic}
+                  className="d-flex m-1 align-items-center text-center"
+                  to={topicLink(topic)}
+                  style={{
+                    backgroundImage: `url('${topicImages.get(topic)}')`,
+                  }}
+                >
+                  <span className="w-100 bg-light px-2">
+                    {topic}
+                  </span>
+                </Link>
+              )}
+            </div>
           </div>
         </div>
       </div>

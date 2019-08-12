@@ -10,9 +10,13 @@ export default ({ quote }) => (
     "
     style={{ top: 0, left: 0 }}
   >
+    <QuoteImage quote={quote} />
     <blockquote
-      className="blockquote position-absolute bg-light px-3 py-1"
+      className="
+        blockquote position-absolute bg-light px-3 py-1 m-3 rounded-lg
+      "
       style={{
+        left: 0,
         color: 'dimgray',
         opacity: 0.7,
         fontSize: '3vw',
@@ -23,6 +27,5 @@ export default ({ quote }) => (
         {quote.frontmatter.author.name}
       </footer>
     </blockquote>
-    <QuoteImage quote={quote} />
   </div>
 );

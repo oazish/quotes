@@ -12,6 +12,7 @@ export default ({ location, data }) => (
     <div className="container-fluid">
       <div className="row">
         <div className="col-12 col-lg-8 mx-auto">
+          <h1 className="mb-3">Quotes</h1>
           <QuotesList quotes={data.allMarkdownRemark.nodes} />
         </div>
       </div>
