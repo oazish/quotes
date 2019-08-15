@@ -5,6 +5,9 @@ import classNames from 'classnames';
 import Layout from '../components/layout';
 import { topicLink } from '../utils/shared';
 import styles from '../styles/topics.module.css';
+import { Heading, Column } from '../components/content';
+
+const COLUMN_CLASSNAME = 'col-12 col-md-10 col-lg-8 mx-auto';
 
 export default ({ location, data }) => {
   const topicImages = new Map(data.allFile.nodes.map(
@@ -12,30 +15,35 @@ export default ({ location, data }) => {
   ));
 
   return (
-    <Layout location={location} title="Quote Topics">
-      <div className={classNames('container-fluid', styles.container)}>
-        <div className="row">
-          <div className="col-12 col-md-10 col-lg-8 mx-auto">
-            <h1 className="mb-3">Topics</h1>
-            <div className={styles.topics}>
-              {data.allMarkdownRemark.group.map(({ topic }) =>
-                <Link
-                  key={topic}
-                  className="d-flex m-1 align-items-center text-center"
-                  to={topicLink(topic)}
-                  style={{
-                    backgroundImage: `url('${topicImages.get(topic)}')`,
-                  }}
-                >
-                  <span className="w-100 bg-light px-2">
-                    {topic}
-                  </span>
-                </Link>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
+    <Layout
+      location={location}
+      title="Quote Topics"
+      heading={
+        <Column className={COLUMN_CLASSNAME}>
+          <Heading>Topics</Heading>
+        </Column>
+      }
+    >
+      <Column className={classNames(COLUMN_CLASSNAME, styles.topics)}>
+        {data.allMarkdownRemark.group.map(({ topic }) => {
+          const image = topicImages.get(topic);
+          return (
+            <Link
+              key={topic}
+              to={topicLink(topic)}
+              style={{
+                background: image
+                  ? `url('${image}') center / cover`
+                  : 'gray',
+              }}
+            >
+              <div className={styles.overlay}>
+                <span className="bg-light">{topic}</span>
+              </div>
+            </Link>
+          );
+        })}
+      </Column>
     </Layout>
   );
 };

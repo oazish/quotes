@@ -1,16 +1,22 @@
 import React from 'react';
 
 import Layout from '../components/layout';
+import { Heading, Column } from '../components/content';
+
+const COLUMN_CLASSNAME = 'col-sm mx-auto';
 
 export default ({ location }) => (
-  <Layout location={location} title="Spiritual Quotes Home">
-    <div className="container">
-      <div className="row">
-        <div className="col-sm mx-auto">
-          <h1 className="mb-3">Spiritual Quotes Home</h1>
-          <p>Welcome to spiritual quotes!</p>
-        </div>
-      </div>
-    </div>
+  <Layout
+    location={location}
+    title="Spiritual Quotes Home"
+    heading={
+      <Column className={COLUMN_CLASSNAME}>
+        <Heading>Spiritual Quotes Home</Heading>
+      </Column>
+    }
+  >
+    <Column className={COLUMN_CLASSNAME}>
+      {/* TODO: Home page content */}
+    </Column>
   </Layout>
 );

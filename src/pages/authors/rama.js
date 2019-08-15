@@ -1,20 +1,23 @@
 import React from 'react';
-// import { graphql } from 'gatsby';
 
 import Layout from '../../components/layout';
+import { Heading, Column } from '../../components/content';
 import picture from '../../assets/images/authors/rama.jpg';
 
-// TODO: Deduplicate common three-column layout between author detail and
-//   topic detail pages.
 export default ({ location }) => (
   <Layout
     location={location}
-    title="About Rama, Frederick Lenz"
+    title="About Rama, Dr. Frederick Lenz"
     type="article"
+    heading={
+      <Column className="col-12 col-lg-auto mx-auto">
+        <Heading>Rama, Dr. Frederick Lenz</Heading>
+      </Column>
+    }
   >
-    <div className="container-fluid p-3">
+    <div className="container-fluid mt-2">
       <div className="row">
-        <div className="col-12 col-lg-auto">
+        <div className="col-12 col-lg-auto ml-auto">
           <div
             className="rounded-circle mb-3 mx-auto"
             style={{
@@ -25,14 +28,9 @@ export default ({ location }) => (
               height: '210px',
             }}
           />
-          <div className="font-weight-bold text-center">
-            Rama, Dr. Frederick Lenz
-          </div>
         </div>
-        <div className="col-12 mt-3 ml-2 col-lg-8 mt-lg-0">
+        <div className="col-12 mt-3 ml-2 col-lg-8 mt-lg-0 mr-auto">
           <Biography />
-        </div>
-        <div className="col-2">
         </div>
       </div>
     </div>

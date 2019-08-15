@@ -1,25 +1,33 @@
 .topics {
-  display: flex;
-  flex-wrap: wrap;
+  margin-top: .5rem;
+  text-align: center;
 }
 
-/* Let topics fit in two columns for a medium screen sizes. */
-@media (max-width: 768px) {
-  .container {
-    max-width: 720px;
-  }
-}
-
-.topics a {
+.topics > a {
   width: 13rem;
   height: 10rem;
+  display: inline-block;
   background-size: cover;
   background-position: center;
   filter: brightness(75%);
-  font-size: 1.2rem;
+  margin: .25rem;
+  vertical-align: middle;
 }
 
-.topics a:hover {
+.topics > a:hover {
   filter: initial;
   text-decoration: none;
+}
+
+.overlay {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.topics span {
+  line-height: normal;
+  width: 100%;
+  font-size: 1.2rem;
+  padding: 0.25rem 0.5rem;
 }

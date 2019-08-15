@@ -17,6 +17,8 @@ import $ from 'jquery';
 
 import styles from '../styles/search.module.css';
 
+const SEARCH_MODAL_ID = 'searchModal';
+
 const algoliaClient = algoliasearch(
   'X714S4E474',
   'f1d168915a01f8c803dafacc99686b08',
@@ -33,7 +35,36 @@ const searchClient = {
 
 export const SearchIcon = props => <MdSearch size="24px" {...props} />;
 
-export const Search = () => {
+export const SearchModal = () => (
+  <aside
+    id={SEARCH_MODAL_ID}
+    className="modal fade"
+    tabIndex="-1"
+    role="dialog"
+    aria-hidden="true"
+  >
+    <div className="modal-dialog modal-lg">
+      <div className="modal-content">
+        <div className="modal-header">
+          <h5 className="modal-title">Search</h5>
+          <button
+            type="button"
+            className="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div className="modal-body">
+          <SearchBody />
+        </div>
+      </div>
+    </div>
+  </aside>
+);
+
+const SearchBody = () => {
   // The search components are heavy, and this code renders during build and
   // also in the browser, so exclude them from build-time rendering. Check for
   // `window` (defined only in the browser), exiting gracefully otherwise.
@@ -123,7 +154,7 @@ const Hits = connectHits(({ hits }) =>
           key={hit.objectID}
           to={hit.objectID}
           // Hide modal when navigating to a search hit.
-          onClick={() => $('#searchModal').modal('hide')}
+          onClick={() => $(`#${SEARCH_MODAL_ID}`).modal('hide')}
         >
           <Snippet hit={hit} attribute="value" tagName="mark" />
         </Link>
@@ -148,7 +179,7 @@ const SearchBox = connectSearchBox(class extends React.Component {
 
   componentDidMount() {
     this.debouncedRefine = debounce(this.props.refine, 300);
-    this.modal = $('#searchModal');
+    this.modal = $(`#${SEARCH_MODAL_ID}`);
     // Focus input when modal becomes fully visible.
     this.modal.on('shown.bs.modal', this.focus);
   }

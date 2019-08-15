@@ -1,37 +1,41 @@
-.quote {
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 4px;
-  --color: rgba(0, 0, 0, 0.8);
-  color: var(--color);
-}
-
-.quote blockquote footer {
-  color: var(--color);
-  display: flex;
-  align-items: center;
-}
-
-.quote blockquote a {
-  color: var(--color);
-}
-
-.quote a:hover {
-  color: #0056b3;
-}
-
-.quote hr {
-  border-color: var(--color);
-}
-
 .shareButton {
   color: var(--color);
   margin-left: auto;
 }
 
 .topics :global(.badge) {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: lightgray;
-  background-color: var(--color);
+  padding: .3rem .4rem;
+  margin-right: .25rem;
+}
+
+.blockquote {
+  min-height: 15rem;
+  margin: 1rem 0 2rem;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.blockquote > h1 {
+  margin-top: auto;
+}
+
+.blockquote > footer {
+  margin-bottom: auto;
+  display: flex;
+  align-items: center;
+  color: hsl(0, 0%, 95%);
+}
+
+.blockquote > footer > a {
+  color: inherit;
+}
+
+.blockquote > footer > a:hover,
+.blockquote > footer > button:hover {
+  color: silver;
+  text-decoration: none;
 }

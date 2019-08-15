@@ -5,18 +5,24 @@ import React from 'react';
 import { graphql } from 'gatsby';
 
 import Layout from '../components/layout';
+import { Heading, Column } from '../components/content';
 import QuotesList from '../components/quotes-list';
 
+const COLUMN_CLASSNAME = 'col-12 col-lg-8 mx-auto';
+
 export default ({ location, data }) => (
-  <Layout location={location} title="All Quotes">
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-12 col-lg-8 mx-auto">
-          <h1 className="mb-3">Quotes</h1>
-          <QuotesList quotes={data.allMarkdownRemark.nodes} />
-        </div>
-      </div>
-    </div>
+  <Layout
+    location={location}
+    title="All Quotes"
+    heading={
+      <Column className={COLUMN_CLASSNAME}>
+        <Heading>All Quotes</Heading>
+      </Column>
+    }
+  >
+    <Column className={COLUMN_CLASSNAME}>
+      <QuotesList quotes={data.allMarkdownRemark.nodes} />
+    </Column>
   </Layout>
 );
 

@@ -2,13 +2,15 @@ import React from 'react';
 import { Link, withPrefix } from 'gatsby';
 import { Helmet } from 'react-helmet';
 
-import { Search, SearchIcon } from './search';
+import { SearchModal, SearchIcon } from './search';
+import { Background } from './content';
 import logo from '../assets/images/logo.png';
 import { getAbsoluteUrl } from '../utils/misc';
 import styles from '../styles/layout.module.css';
 
 export default ({
-  background,
+  background = <Background />,
+  heading,
   location,
   image,
   children,
@@ -20,62 +22,17 @@ export default ({
       image={image && getAbsoluteUrl(image)}
       {...remainingProps}
     />
-    <div className={styles.layout}>
-      <div
-        className="position-absolute w-100 h-100"
-        style={{ left: 0, top: 0, zIndex: -1 }}
-      >
+    <header className={styles.header}>
+      <div className={styles.background}>
         {background}
       </div>
-      <div className="position-relative">
-        <div>
-          {/* Could be converted to ::after pseudo-element */}
-          <div
-            className="position-absolute w-100 h-100"
-            style={{
-              left: 0,
-              top: 0,
-              background:
-                'linear-gradient(hsla(0, 0%, 20%, 0.7), transparent)',
-              zIndex: -1,
-            }}
-          />
-          <div className="mb-2">
-            <Navbar />
-          </div>
-        </div>
-      </div>
-      <div>
-        {children}
-      </div>
-      {/* TODO: Refactor modal along with element ID into search.js. */}
-      <div
-        id="searchModal"
-        className="modal fade"
-        tabIndex="-1"
-        role="dialog"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-lg">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title">Search</h5>
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              <Search />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      <Navbar />
+      {heading}
+    </header>
+    <main>
+      {children}
+    </main>
+    <SearchModal />
   </>
 );
 
