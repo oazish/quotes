@@ -32,13 +32,13 @@ export default ({ location, data }) => {
               key={topic}
               to={topicLink(topic)}
               style={{
-                background: image
+                '--background': image
                   ? `url('${image}') center / cover`
                   : 'gray',
               }}
             >
               <div className={styles.overlay}>
-                <span className="bg-light">{topic}</span>
+                <span>{topic}</span>
               </div>
             </Link>
           );

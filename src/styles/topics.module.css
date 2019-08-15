@@ -9,14 +9,21 @@
   display: inline-block;
   background-size: cover;
   background-position: center;
-  filter: brightness(75%);
   margin: .25rem;
   vertical-align: middle;
+  background:
+    radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)),
+    var(--background);
 }
 
 .topics > a:hover {
   filter: initial;
   text-decoration: none;
+  background: var(--background);
+}
+
+.topics > a:hover span {
+  opacity: 0;
 }
 
 .overlay {
@@ -26,8 +33,10 @@
 }
 
 .topics span {
+  color: var(--link-color-light);
   line-height: normal;
   width: 100%;
   font-size: 1.2rem;
   padding: 0.25rem 0.5rem;
+  transition: opacity ease-in-out 100ms;
 }
