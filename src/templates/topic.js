@@ -2,14 +2,14 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import classNames from 'classnames';
 
-import Layout from '../components/layout';
+import Page from '../components/page';
 import QuotesList from '../components/quotes-list';
 import { Background, Heading, Column } from '../components/content';
 
 const COLUMN_CLASSNAME = 'col-12 col-lg-8 mt-lg-0 mx-auto';
 
 export default ({ location, pageContext, data }) => (
-  <Layout
+  <Page
     location={location}
     title={`${pageContext.topic} Quotes`}
     // TODO: And if it's null?
@@ -31,7 +31,7 @@ export default ({ location, pageContext, data }) => (
     <Column className={classNames(COLUMN_CLASSNAME, 'mt-3 ml-2 mt-lg-0')}>
       <QuotesList quotes={data.allMarkdownRemark.nodes} />
     </Column>
-  </Layout>
+  </Page>
 );
 
 // TODO: Find way to dedupe pruneLength.

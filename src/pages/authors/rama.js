@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Layout from '../../components/layout';
+import Page from '../../components/page';
 import { Heading, Column } from '../../components/content';
 import picture from '../../assets/images/authors/rama.jpg';
 
 export default ({ location }) => (
-  <Layout
+  <Page
     location={location}
     title="About Rama, Dr. Frederick Lenz"
     type="article"
@@ -34,7 +34,7 @@ export default ({ location }) => (
         </div>
       </div>
     </div>
-  </Layout>
+  </Page>
 );
 
 const SURFING_HIMALAYAS_URL =

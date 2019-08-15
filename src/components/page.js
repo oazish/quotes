@@ -6,7 +6,7 @@ import { SearchModal, SearchIcon } from './search';
 import { Background } from './content';
 import logo from '../assets/images/logo.png';
 import { getAbsoluteUrl } from '../utils/misc';
-import styles from '../styles/layout.module.css';
+import styles from '../styles/page.module.css';
 
 export default ({
   background = <Background />,

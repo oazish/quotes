@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql, Link } from 'gatsby';
 import classNames from 'classnames';
 
-import Layout from '../components/layout';
+import Page from '../components/page';
 import ShareButton from '../components/share-button';
 import { topicLink } from '../utils/shared';
 import QuoteImage from '../components/quote-image';
@@ -17,7 +17,7 @@ export default ({ location, data }) => {
   const { topics, author } = quote.frontmatter;
 
   return (
-    <Layout
+    <Page
       location={location}
       title={`Quote by ${author.name}`}
       type="article"
@@ -58,7 +58,7 @@ export default ({ location, data }) => {
           )}
         </div>
       </Column>
-    </Layout>
+    </Page>
   );
 };
 

@@ -1,4 +1,3 @@
-// TODO: Rename to Layout and rename Layout to Page.
 import React from 'react';
 import classNames from 'classnames';
 

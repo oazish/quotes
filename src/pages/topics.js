@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, graphql } from 'gatsby';
 import classNames from 'classnames';
 
-import Layout from '../components/layout';
+import Page from '../components/page';
 import { topicLink } from '../utils/shared';
 import styles from '../styles/topics.module.css';
 import { Heading, Column } from '../components/content';
@@ -15,7 +15,7 @@ export default ({ location, data }) => {
   ));
 
   return (
-    <Layout
+    <Page
       location={location}
       title="Quote Topics"
       heading={
@@ -44,7 +44,7 @@ export default ({ location, data }) => {
           );
         })}
       </Column>
-    </Layout>
+    </Page>
   );
 };
 

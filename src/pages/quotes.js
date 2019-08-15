@@ -4,14 +4,14 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 
-import Layout from '../components/layout';
+import Page from '../components/page';
 import { Heading, Column } from '../components/content';
 import QuotesList from '../components/quotes-list';
 
 const COLUMN_CLASSNAME = 'col-12 col-lg-8 mx-auto';
 
 export default ({ location, data }) => (
-  <Layout
+  <Page
     location={location}
     title="All Quotes"
     heading={
@@ -23,7 +23,7 @@ export default ({ location, data }) => (
     <Column className={COLUMN_CLASSNAME}>
       <QuotesList quotes={data.allMarkdownRemark.nodes} />
     </Column>
-  </Layout>
+  </Page>
 );
 
 export const query = graphql`
