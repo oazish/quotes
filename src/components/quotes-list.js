@@ -16,9 +16,9 @@ export default ({ quotes }) => (
           <QuoteImage quote={quote} />
         </div>
         <div className={styles.text}>
-          <q>
+          <span>
             {quote.excerpt}
-          </q>
+          </span>
         </div>
         <ShareButton
           shareUrl={quote.fields.slug}

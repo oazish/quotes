@@ -1,16 +1,3 @@
-.shareButton {
-  color: var(--color);
-  margin-left: auto;
-}
-
-.topics :global(.badge) {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: lightgray;
-  padding: .3rem .4rem;
-  margin-right: .25rem;
-}
-
 .blockquote {
   min-height: 15rem;
   margin: 1rem 0 2rem;
@@ -27,7 +14,7 @@
   margin-bottom: auto;
   display: flex;
   align-items: center;
-  color: hsl(0, 0%, 95%);
+  color: var(--link-color-light);
 }
 
 .blockquote > footer > a {
@@ -36,6 +23,18 @@
 
 .blockquote > footer > a:hover,
 .blockquote > footer > button:hover {
-  color: silver;
+  color: var(--link-color-light-hover);
   text-decoration: none;
+}
+
+.shareButton {
+  margin-left: auto;
+}
+
+.topics :global(.badge) {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: lightgray;
+  padding: .3rem .4rem;
+  margin-right: .25rem;
 }

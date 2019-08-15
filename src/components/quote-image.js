@@ -3,15 +3,11 @@ import React from 'react';
 export default ({ quote }) => (
   <div
     className="h-100 w-100"
-    style={
-      quote.image
-        ? {
-          background: `url('${quote.image.publicURL}') center / cover`,
-        }
-        : {
-          background: quote.placeholder.backgroundColor,
-        }
-    }
+    style={{
+      background: quote.image
+        ? `url('${quote.image.publicURL}') center / cover`
+        : quote.placeholder.backgroundColor,
+    }}
   >
     {
       quote.image

@@ -2,9 +2,12 @@
   display: flex;
   margin-top: .5rem;
   flex-direction: column;
+  --item-height: 190px;
 }
 
 .quotes > a {
+  height: var(--item-height);
+  position: relative;
   display: flex;
   padding: 0;
   margin-bottom: .5rem;
@@ -25,8 +28,8 @@
 }
 
 .image {
-  width: 190px;
-  height: 190px;
+  width: var(--item-height);
+  height: 100%;
 }
 
 .text {
@@ -39,7 +42,7 @@
  * Use absolutely-positioned container for quote text to prevent extra long
  * quotes from expanding the parent.
  */
-.text > q {
+.text > span {
   position: absolute;
   overflow: hidden;
   align-items: center;
@@ -50,12 +53,38 @@
   left: 0;
 }
 
-/* Disable quotation marks added to via pseudo-elements. */
-.text > q::after,
-.text > q::before {
-  display: none;
-}
-
 .share:not(:hover) {
   color: var(--link-color);
+}
+
+/* Media query targeting screens smaller than Bootstrap "medium". */
+@media (max-width: 768px) {
+  .quotes > a,
+  .share:not(:hover) {
+    color: var(--link-color-light);
+  }
+
+  .quotes > a:hover,
+  .share:hover {
+    color: var(--link-color-light-hover);
+  }
+
+  .image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+  }
+
+  .image::after {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    content: '';
+    background: var(--linear-gradient);
+  }
 }
