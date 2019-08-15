@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Page from '../../components/page';
-import { Heading, Column } from '../../components/content';
+import { Heading, Column } from '../../components/layout';
 import picture from '../../assets/images/authors/rama.jpg';
 
 export default ({ location }) => (

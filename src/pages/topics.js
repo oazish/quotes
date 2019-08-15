@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import Page from '../components/page';
 import { topicLink } from '../utils/shared';
 import styles from '../styles/topics.module.css';
-import { Heading, Column } from '../components/content';
+import { Heading, Column } from '../components/layout';
 
 const COLUMN_CLASSNAME = 'col-12 col-md-10 col-lg-8 mx-auto';
 

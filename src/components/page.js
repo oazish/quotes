@@ -3,7 +3,7 @@ import { Link, withPrefix } from 'gatsby';
 import { Helmet } from 'react-helmet';
 
 import { SearchModal, SearchIcon } from './search';
-import { Background } from './content';
+import { Background } from './layout';
 import logo from '../assets/images/logo.png';
 import { getAbsoluteUrl } from '../utils/misc';
 import styles from '../styles/page.module.css';

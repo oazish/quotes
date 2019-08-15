@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import Page from '../components/page';
 import QuotesList from '../components/quotes-list';
-import { Background, Heading, Column } from '../components/content';
+import { Background, Heading, Column } from '../components/layout';
 
 const COLUMN_CLASSNAME = 'col-12 col-lg-8 mt-lg-0 mx-auto';
 

@@ -6,7 +6,7 @@ import Page from '../components/page';
 import ShareButton from '../components/share-button';
 import { topicLink } from '../utils/shared';
 import QuoteImage from '../components/quote-image';
-import { Column } from '../components/content';
+import { Column } from '../components/layout';
 import { SHAREABLE_IMAGE_DIMENSIONS } from '../utils/shared';
 import styles from '../styles/quote.module.css';
 

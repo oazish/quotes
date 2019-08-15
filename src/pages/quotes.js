@@ -5,7 +5,7 @@ import React from 'react';
 import { graphql } from 'gatsby';
 
 import Page from '../components/page';
-import { Heading, Column } from '../components/content';
+import { Heading, Column } from '../components/layout';
 import QuotesList from '../components/quotes-list';
 
 const COLUMN_CLASSNAME = 'col-12 col-lg-8 mx-auto';

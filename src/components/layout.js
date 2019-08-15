@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import styles from '../styles/content.module.css';
+import styles from '../styles/layout.module.css';
 
 export const Background = ({ className, ...rest }) => (
   <div className={classNames(styles.background, className)} {...rest} />
@@ -22,4 +22,3 @@ export const Column = ({ containerFluid = true, className, children }) => (
     </div>
   </div>
 );
-

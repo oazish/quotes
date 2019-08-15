@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Page from '../components/page';
-import { Heading, Column } from '../components/content';
+import { Heading, Column } from '../components/layout';
 
 const COLUMN_CLASSNAME = 'col-sm mx-auto';
 
