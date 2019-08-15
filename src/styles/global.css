@@ -2,6 +2,10 @@
  * Overrides for default Bootstrap styles.
  */
 
+:root {
+  --link-color: hsl(0, 0%, 20%);
+}
+
 a {
-    color: hsl(0, 0%, 20%);
+  color: var(--link-color);
 }

@@ -1,26 +1,45 @@
-.quote {
+.quotes {
+  display: flex;
+  margin-top: .5rem;
+  flex-direction: column;
+}
+
+.quotes > a {
+  display: flex;
+  padding: 0;
+  margin-bottom: .5rem;
   box-shadow:
     0 1px 1px 0 rgba(60, 64, 67, .08),
     0 1px 3px 1px rgba(60,64,67,.16);
   transition: box-shadow 135ms cubic-bezier(.4, 0, .2, 1);
   border-radius: 4px;
-  /* Make child obey this element's border-radius. */
+  /* Make children obey this element's border-radius. */
   overflow: hidden;
 }
 
-.quote:hover {
+.quotes > a:hover {
   box-shadow:
     0 1px 3px 1px rgba(60, 64, 67, .2),
     0 2px 8px 4px rgba(60, 64, 67, .1);
+  text-decoration: none;
 }
 
-.quoteImage {
-  display: inline-block;
-  width: 212px;
+.image {
+  width: 190px;
   height: 190px;
 }
 
-.quoteText {
+.text {
+  position: relative;
+  margin: 0 .25rem 0 1rem;
+  flex-grow: 1;
+}
+
+/*
+ * Use absolutely-positioned container for quote text to prevent extra long
+ * quotes from expanding the parent.
+ */
+.text > q {
   position: absolute;
   overflow: hidden;
   align-items: center;
@@ -29,4 +48,14 @@
   right: 0;
   bottom: 0;
   left: 0;
+}
+
+/* Disable quotation marks added to via pseudo-elements. */
+.text > q::after,
+.text > q::before {
+  display: none;
+}
+
+.share:not(:hover) {
+  color: var(--link-color);
 }
