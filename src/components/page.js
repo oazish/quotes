@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet';
 import { SearchModal, SearchIcon } from './search';
 import { Background } from './layout';
 import logo from '../assets/images/logo.png';
-import { getAbsoluteUrl } from '../utils/misc';
+import { useAbsoluteUrl } from '../utils/misc';
 import styles from '../styles/page.module.css';
 
 export default ({
@@ -18,8 +18,8 @@ export default ({
 }) => (
   <>
     <Head
-      url={getAbsoluteUrl(location.pathname)}
-      image={image && getAbsoluteUrl(image)}
+      url={useAbsoluteUrl(location.pathname)}
+      image={useAbsoluteUrl(image)}
       {...remainingProps}
     />
     <header className={styles.header}>

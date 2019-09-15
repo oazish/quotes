@@ -2,11 +2,11 @@ import React from 'react';
 import classNames from 'classnames';
 import { MdShare } from 'react-icons/md';
 
-import { getAbsoluteUrl } from '../utils/misc';
+import { useAbsoluteUrl } from '../utils/misc';
 import styles from '../styles/share-button.module.css';
 
 export default ({ shareUrl, className, style }) => {
-  const absoluteShareUrl = getAbsoluteUrl(shareUrl);
+  const absoluteShareUrl = useAbsoluteUrl(shareUrl);
 
   return (
     <button
