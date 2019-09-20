@@ -13,10 +13,15 @@ export const Heading = ({ children }) => (
   </div>
 );
 
-export const Column = ({ containerFluid = true, className, children }) => (
+export const Column = ({
+  containerFluid = true,
+  className,
+  children,
+  ...rest,
+}) => (
   <div className={containerFluid ? 'container-fluid' : 'container'}>
     <div className="row">
-      <div className={className}>
+      <div className={className} {...rest}>
         {children}
       </div>
     </div>

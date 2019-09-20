@@ -1,4 +1,9 @@
-.header {
+.full {
+  min-height: 100vh;
+  background: var(--linear-gradient);
+}
+
+main:not(.full) > .header {
   position: relative;
   background: var(--linear-gradient);
 }

@@ -1,0 +1,25 @@
+.heading {
+  color: white;
+  margin: 7rem 0 8rem;
+  /* If text wraps on small screen, center-align all lines of text. */
+  text-align: center;
+}
+
+.heading > h1 {
+  margin-bottom: 1.5rem;
+}
+
+.search {
+  max-width: 30rem;
+  margin: 0 auto;
+  /* border-radius: 50%; */
+}
+
+.search :global(.input-group-text), .search input {
+  /* Create rounded corners preserving circular shape. */
+  border-radius: 999rem;
+}
+
+.search input[readonly] {
+  background-color: white;
+}

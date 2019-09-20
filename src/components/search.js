@@ -17,8 +17,6 @@ import $ from 'jquery';
 
 import styles from '../styles/search.module.css';
 
-const SEARCH_MODAL_ID = 'searchModal';
-
 const algoliaClient = algoliasearch(
   'X714S4E474',
   'f1d168915a01f8c803dafacc99686b08',
@@ -32,6 +30,8 @@ const searchClient = {
       : undefined
   )),
 };
+
+export const SEARCH_MODAL_ID = 'searchModal';
 
 export const SearchIcon = props => <MdSearch size="24px" {...props} />;
 

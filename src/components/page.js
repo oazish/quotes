@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link, withPrefix } from 'gatsby';
 import { Helmet } from 'react-helmet';
+import classNames from 'classnames';
 
-import { SearchModal, SearchIcon } from './search';
+import { SEARCH_MODAL_ID, SearchModal, SearchIcon } from './search';
 import { Background } from './layout';
 import logo from '../assets/images/logo.png';
 import { useAbsoluteUrl } from '../utils/misc';
@@ -13,28 +14,44 @@ export default ({
   heading,
   location,
   image,
+  full,
   children,
   ...remainingProps,
-}) => (
-  <>
-    <Head
-      url={useAbsoluteUrl(location.pathname)}
-      image={useAbsoluteUrl(image)}
-      {...remainingProps}
-    />
-    <header className={styles.header}>
-      <div className={styles.background}>
-        {background}
-      </div>
-      <Navbar />
-      {heading}
-    </header>
-    <main>
-      {children}
-    </main>
-    <SearchModal />
-  </>
-);
+}) => {
+  const backgroundWrapper = (
+    <aside className={styles.background}>
+      {background}
+    </aside>
+  );
+  return (
+    <>
+      <Head
+        url={useAbsoluteUrl(location.pathname)}
+        image={useAbsoluteUrl(image)}
+        {...remainingProps}
+      />
+      <main className={classNames({ [styles.full]: full })}>
+        {
+          // If page background is full-screen, render it within main element.
+          full && backgroundWrapper
+        }
+        <header className={styles.header}>
+          {
+            // If page background is not full-screen, render it within header
+            // element, limiting its size.
+            !full && backgroundWrapper
+          }
+          <Navbar />
+          {heading}
+        </header>
+        <article>
+          {children}
+        </article>
+        <SearchModal />
+      </main>
+    </>
+  );
+};
 
 const Navbar = () => (
   <nav
@@ -94,7 +111,7 @@ const Navbar = () => (
         type="button"
         aria-label="Search"
         className="btn btn-link nav-link"
-        data-target="#searchModal"
+        data-target={`#${SEARCH_MODAL_ID}`}
         data-toggle="modal"
       >
         <SearchIcon className="d-none d-md-inline" />

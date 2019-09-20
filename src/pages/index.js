@@ -1,22 +1,52 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import Page from '../components/page';
-import { Heading, Column } from '../components/layout';
+import { Column, Background } from '../components/layout';
+import { SEARCH_MODAL_ID, SearchIcon } from '../components/search';
+import styles from '../styles/index.module.css';
+import image from '../assets/images/home.jpg';
 
-const COLUMN_CLASSNAME = 'col-sm mx-auto';
+const COLUMN_CLASSNAME = 'col-sm mx-auto text-center';
 
 export default ({ location }) => (
   <Page
     location={location}
-    title="Spiritual Quotes Home"
+    title="Buddha Quotes"
+    full={true}
     heading={
-      <Column className={COLUMN_CLASSNAME}>
-        <Heading>Spiritual Quotes Home</Heading>
+      <Column className={classNames(COLUMN_CLASSNAME, styles.heading)}>
+        <h1 className>Buddha Quotes</h1>
+        <span>
+          Essential quotes &amp; truth from buddhas and beings of the
+          Vajrayana path
+        </span>
       </Column>
+    }
+    background={
+      <Background
+        style={{ background: `url('${image}') center / cover` }}
+      />
     }
   >
     <Column className={COLUMN_CLASSNAME}>
-      {/* TODO: Home page content */}
+      <section className={styles.search}>
+        <div className="input-group">
+          <input
+            type="text"
+            className="form-control"
+            aria-label="Search"
+            data-target={`#${SEARCH_MODAL_ID}`}
+            data-toggle="modal"
+            readOnly
+          />
+          <div className="input-group-append">
+            <span className="input-group-text">
+              <SearchIcon />
+            </span>
+          </div>
+        </div>
+      </section>
     </Column>
   </Page>
 );
