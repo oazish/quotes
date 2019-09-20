@@ -29,7 +29,7 @@ main:not(.full) .header::after {
   position: absolute;
   bottom: 0;
   left: 0;
-  background: linear-gradient(transparent, white);
+  background: linear-gradient(transparent, var(--page-background));
   z-index: -1;
 }
 

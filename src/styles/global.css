@@ -7,6 +7,11 @@
   --link-color-light: hsl(0, 0%, 95%);
   --link-color-light-hover: hsl(0, 0%, 85%);
   --linear-gradient: linear-gradient(rgb(0, 0, 0, 0.4), rgb(0, 0, 0, 0.1));
+  --page-background: rgb(255, 242, 199);
+}
+
+body {
+  background: var(--page-background);
 }
 
 a {
