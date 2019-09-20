@@ -44,6 +44,7 @@ export default ({ location, data }) => {
           </blockquote>
         </Column>
       }
+      className={styles.page}
     >
       <Column className={classNames(COLUMN_CLASSNAME, 'mt-2')}>
         <div className={styles.topics}>

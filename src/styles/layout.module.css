@@ -5,11 +5,12 @@
 
 .heading {
   color: white;
-  min-height: 15rem;
-  margin: 1rem 0 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  min-height: 18rem;
+  padding-top: 3rem;
   /* If text wraps on small screen, center-align all lines of text. */
   text-align: center;
+}
+
+.heading > * {
+  margin: 0;
 }

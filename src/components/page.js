@@ -14,8 +14,9 @@ export default ({
   heading,
   location,
   image,
-  full,
+  full = false,
   children,
+  className,
   ...remainingProps,
 }) => {
   const backgroundWrapper = (
@@ -30,7 +31,7 @@ export default ({
         image={useAbsoluteUrl(image)}
         {...remainingProps}
       />
-      <main className={classNames({ [styles.full]: full })}>
+      <main className={classNames({ [styles.full]: full }, className)}>
         {
           // If page background is full-screen, render it within main element.
           full && backgroundWrapper

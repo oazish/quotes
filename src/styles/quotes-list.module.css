@@ -6,6 +6,7 @@
 }
 
 .quotes > a {
+  background: white;
   height: var(--item-height);
   position: relative;
   display: flex;
@@ -62,6 +63,7 @@
   .quotes > a,
   .share:not(:hover) {
     color: var(--link-color-light);
+    background-color: transparent;
   }
 
   .quotes > a:hover,

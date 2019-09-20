@@ -1,3 +1,11 @@
+.page > article {
+  margin-top: 0 !important;
+}
+
+.page > header::after {
+  display: none;
+}
+
 .blockquote {
   min-height: 15rem;
   margin: 1rem 0 2rem;
