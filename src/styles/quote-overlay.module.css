@@ -5,7 +5,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 3rem;
 }
 
 .overlay > aside {
@@ -27,6 +26,9 @@
   /* Relative positioning renders blockquote above background gradient. */
   position: relative;
   margin: 0;
+  padding: 36px 100px;
+  --semibold: 600;
+  font-weight: var(--semibold);
 }
 
 .overlay > blockquote > h1 {
@@ -34,6 +36,7 @@
   color: white;
   font-size: 2rem;
   margin-bottom: 1rem;
+  font-weight: var(--semibold);
 }
 
 .overlay > blockquote > footer {
