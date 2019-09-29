@@ -5,7 +5,7 @@ import classNames from 'classnames';
 
 import { SEARCH_MODAL_ID, SearchModal, SearchIcon } from './search';
 import { Background } from './layout';
-import logo from '../assets/images/logo.png';
+import logo from '../assets/images/logo.svg';
 import { useAbsoluteUrl } from '../utils/misc';
 import styles from '../styles/page.module.css';
 
