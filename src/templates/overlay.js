@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import QuoteOverlay from '../components/quote-overlay';
 
-const MAX_REM_SIZE = 40;
-const MIN_REM_SIZE = 14;
+const MAX_REM_SIZE = 64;
+const MIN_REM_SIZE = 5;
 
 export default ({ pageContext }) => {
   const [fontSizeComputed, setFontSizeComputed] = useState(false);
@@ -41,7 +41,7 @@ const setDynamicFontSize = () => {
   let max = MAX_REM_SIZE;
   let min = MIN_REM_SIZE;
   const quoteElement = document.querySelector('blockquote');
-  const documentElement = document.documentElement;
+  const documentElement = quoteElement.parentElement;
 
   // Limit font determination to 50 iterations, just in case.
   for (let i = 0; i < 50; ++i) {

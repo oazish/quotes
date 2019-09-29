@@ -16,7 +16,7 @@ export default ({ location }) => (
     full={true}
     heading={
       <Column className={classNames(COLUMN_CLASSNAME, styles.heading)}>
-        <h1 className>Buddha Quotes</h1>
+        <h1>Buddha Quotes</h1>
         <span>
           Essential quotes &amp; truth from buddhas and beings of the
           Vajrayana path

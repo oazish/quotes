@@ -7,40 +7,48 @@
   align-items: center;
 }
 
-.overlay > aside {
+.overlay aside {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: var(--linear-gradient);
-}
-
-.overlay > aside > div {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  /* Lower z-index of image so gradient on parent overlays it. */
   z-index: -1;
 }
 
-.overlay > blockquote {
+.overlay section {
+  background: rgba(255, 255, 255, 0.4);
+  position: absolute;
+  --margin: 4vmin;
+  top: var(--margin);
+  right: var(--margin);
+  bottom: var(--margin);
+  left: var(--margin);
+  display: flex;
+  align-items: center;
+}
+
+.overlay blockquote {
   /* Relative positioning renders blockquote above background gradient. */
   position: relative;
   margin: 0;
-  padding: 36px 100px;
+  padding: 3.4vmin 8.2vmin 3.4vmin 8.6vmin;
   --semibold: 600;
   font-weight: var(--semibold);
 }
 
-.overlay > blockquote > h1 {
-  position: relative;
-  color: white;
+.overlay blockquote h1 {
+  color: black;
   font-size: 2rem;
   margin-bottom: 1rem;
   font-weight: var(--semibold);
 }
 
-.overlay > blockquote > footer {
+.overlay blockquote footer {
   position: relative;
-  color: white;
+  color: black;
   font-size: 1.5rem;
+  line-height: 1.1;
+}
+
+.overlay blockquote footer::before {
+  display: none;
 }

@@ -6,15 +6,15 @@ import styles from '../styles/quote-overlay.module.css';
 export default ({ quote }) => (
   <main className={styles.overlay}>
     <aside>
-      <div>
-        <QuoteImage quote={quote} />
-      </div>
+      <QuoteImage quote={quote} />
     </aside>
-    <blockquote className="blockquote">
-      <h1 dangerouslySetInnerHTML={{ __html: quote.html }} />
-      <footer className="blockquote-footer" style={{ color: '#eee' }}>
-        {quote.frontmatter.author.name}
-      </footer>
-    </blockquote>
+    <section>
+      <blockquote className="blockquote">
+        <h1 dangerouslySetInnerHTML={{ __html: quote.html }} />
+        <footer className="blockquote-footer" style={{ color: '#333' }}>
+          {quote.frontmatter.author.name}
+        </footer>
+      </blockquote>
+    </section>
   </main>
 );
