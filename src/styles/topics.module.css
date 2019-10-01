@@ -1,27 +1,49 @@
-.topics {
-  text-align: center;
+.topics section {
+  display: flex;
+  flex-wrap: wrap;
+  /*
+   * Apply negative margin to compensate for margins of children. That way,
+   * the box surrounding the children has effectively no margin while the
+   * children have margin between each other.
+   */
+   --margin: 10px;
+   margin: calc(-1 * var(--margin));
 }
 
-.topics > a {
-  width: 13rem;
-  height: 10rem;
+.topics a {
+  width: 208px;
+  height: 208px;
   display: inline-block;
   background-size: cover;
   background-position: center;
-  margin: .25rem;
+  margin: var(--margin);
   vertical-align: middle;
+  text-align: center;
   background:
     radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)),
     var(--background);
+  box-shadow: var(--card-shadow);
+  transition: var(--card-shadow-transition);
+  border-radius: 4px;
 }
 
-.topics > a:hover {
+.topics a:hover {
   filter: initial;
   text-decoration: none;
   background: var(--background);
+  box-shadow: var(--card-shadow-hover);
 }
 
-.topics > a:hover span {
+.topics a span {
+  color: var(--link-color-light);
+  line-height: normal;
+  width: 100%;
+  font-size: 18px;
+  padding: 0.25rem 0.5rem;
+  transition: opacity ease-in-out 100ms;
+}
+
+.topics a:hover span {
   opacity: 0;
 }
 
@@ -29,13 +51,4 @@
   display: flex;
   align-items: center;
   height: 100%;
-}
-
-.topics span {
-  color: var(--link-color-light);
-  line-height: normal;
-  width: 100%;
-  font-size: 1.2rem;
-  padding: 0.25rem 0.5rem;
-  transition: opacity ease-in-out 100ms;
 }

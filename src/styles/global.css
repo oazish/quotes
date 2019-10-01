@@ -8,6 +8,13 @@
   --link-color-light-hover: hsl(0, 0%, 85%);
   --linear-gradient: linear-gradient(rgb(0, 0, 0, 0.4), rgb(0, 0, 0, 0.1));
   --page-background: rgb(255, 242, 199);
+  --card-shadow:
+    0 1px 1px 0 rgba(60, 64, 67, .08),
+    0 1px 3px 1px rgba(60,64,67,.16);
+  --card-shadow-hover:
+    0 1px 3px 1px rgba(60, 64, 67, .2),
+    0 2px 8px 4px rgba(60, 64, 67, .1);
+  --card-shadow-transition: box-shadow 135ms cubic-bezier(.4, 0, .2, 1);
 }
 
 body {

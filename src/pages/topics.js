@@ -25,24 +25,26 @@ export default ({ location, data }) => {
       }
     >
       <Column className={classNames(COLUMN_CLASSNAME, styles.topics)}>
-        {data.allMarkdownRemark.group.map(({ topic }) => {
-          const image = topicImages.get(topic);
-          return (
-            <Link
-              key={topic}
-              to={topicLink(topic)}
-              style={{
-                '--background': image
-                  ? `url('${image}') center / cover`
-                  : 'gray',
-              }}
-            >
-              <div className={styles.overlay}>
-                <span>{topic}</span>
-              </div>
-            </Link>
-          );
-        })}
+        <section>
+          {data.allMarkdownRemark.group.map(({ topic }) => {
+            const image = topicImages.get(topic);
+            return (
+              <Link
+                key={topic}
+                to={topicLink(topic)}
+                style={{
+                  '--background': image
+                    ? `url('${image}') center / cover`
+                    : 'gray',
+                }}
+              >
+                <div className={styles.overlay}>
+                  <span>{topic}</span>
+                </div>
+              </Link>
+            );
+          })}
+        </section>
       </Column>
     </Page>
   );
