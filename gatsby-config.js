@@ -40,6 +40,8 @@ module.exports = {
     'gatsby-transformer-remark',
     'gatsby-transformer-yaml',
     'gatsby-plugin-react-helmet',
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
     // Only configure Algolia plugin if needed environment variables are set.
     ...(
       algoliaPlugin.options.appId && algoliaPlugin.options.apiKey

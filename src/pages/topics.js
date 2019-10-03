@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
+import BackgroundImage from 'gatsby-background-image';
 import classNames from 'classnames';
 
 import Page from '../components/page';
@@ -8,10 +9,12 @@ import styles from '../styles/topics.module.css';
 import { Heading, Column } from '../components/layout';
 
 const COLUMN_CLASSNAME = 'col-12 col-md-10 col-lg-8 mx-auto';
+// IMPORTANT: Keep in sync with GraphQL query (search for TOPIC_SIZE_PX).
+const TOPIC_SIZE_PX = 200;
 
 export default ({ location, data }) => {
   const topicImages = new Map(data.allFile.nodes.map(
-    ({ name, publicURL }) => [name, publicURL],
+    ({ name, childImageSharp }) => [name, childImageSharp],
   ));
 
   return (
@@ -25,22 +28,18 @@ export default ({ location, data }) => {
       }
     >
       <Column className={classNames(COLUMN_CLASSNAME, styles.topics)}>
-        <section>
+        <section style={{ '--topic-size': `${TOPIC_SIZE_PX}px` }}>
           {data.allMarkdownRemark.group.map(({ topic }) => {
             const image = topicImages.get(topic);
             return (
-              <Link
-                key={topic}
-                to={topicLink(topic)}
-                style={{
-                  '--background': image
-                    ? `url('${image}') center / cover`
-                    : 'gray',
-                }}
-              >
-                <div className={styles.overlay}>
+              <Link key={topic} to={topicLink(topic)}>
+                <aside className={styles.overlay}>
                   <span>{topic}</span>
-                </div>
+                </aside>
+                <TopicImage
+                  image={image}
+                  className={styles.image}
+                />
               </Link>
             );
           })}
@@ -49,6 +48,14 @@ export default ({ location, data }) => {
     </Page>
   );
 };
+
+const TopicImage = ({ image, ...rest }) => (
+  image ? (
+    <BackgroundImage preserveStackingContext={true} {...image} {...rest} />
+  ) : (
+    <div className={styles.placeholder} />
+  )
+);
 
 export const query = graphql`
   {
@@ -65,7 +72,12 @@ export const query = graphql`
     ) {
       nodes {
         name
-        publicURL
+        childImageSharp {
+          # IMPORTANT: Keep in sync with TOPIC_SIZE_PX.
+          fixed(width: 200) {
+            ...GatsbyImageSharpFixed
+          }
+        }
       }
     }
   }
