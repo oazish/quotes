@@ -16,7 +16,7 @@ export default ({ location, pageContext, data }) => (
     background={
       data.file ? (
         <BackgroundImage
-          style={{ height: '100%' }}
+          className="h-100"
           {...data.file.childImageSharp}
         />
       ) :
@@ -41,13 +41,21 @@ export const query = graphql`
       limit: 2000
       filter: { frontmatter: { topics: { in: [$topic] } } }
     ) {
+      # TODO: Refactor in GraphQL fragment.
       nodes {
         excerpt(pruneLength: 200)
         fields {
           slug
         }
         image {
-          publicURL
+          childImageSharp {
+            # The maximum width at which a quote image may be rendered occurs
+            # when quote list has just been collapsed at 768px and the image
+            # appears scretched as a background across the quote text.
+            fluid(maxWidth: 768) {
+              ...GatsbyImageSharpFluid
+            }
+          }
         }
         placeholder {
           patternFile {

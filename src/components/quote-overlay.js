@@ -3,10 +3,10 @@ import React from 'react';
 import QuoteImage from './quote-image';
 import styles from '../styles/quote-overlay.module.css';
 
-export default ({ quote }) => (
+export default ({ quote, onImageLoad }) => (
   <main className={styles.overlay}>
     <aside>
-      <QuoteImage quote={quote} />
+      <QuoteImage quote={quote} onLoad={onImageLoad} />
     </aside>
     <section>
       <blockquote className="blockquote">

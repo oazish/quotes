@@ -75,7 +75,11 @@ export const query = graphql`
         topics
       }
       image {
-        publicURL
+        childImageSharp {
+          fluid(maxWidth: 1920) {
+            ...GatsbyImageSharpFluid
+          }
+        }
       }
       placeholder {
         patternFile {

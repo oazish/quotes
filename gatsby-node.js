@@ -158,7 +158,17 @@ exports.createPages = async ({ graphql, actions }) => {
             }
             html
             image {
-              publicURL
+              childImageSharp {
+                fluid(maxWidth: 1920) {
+                  # Hack! The GraphQL fragment 'GatsbyImageSharpFluid' is
+                  # unavailable in this context. Instead, paste its contents:
+                  base64
+                  aspectRatio
+                  src
+                  srcSet
+                  sizes
+                }
+              }
             }
             placeholder {
               patternFile {

@@ -7,6 +7,9 @@ const MIN_REM_SIZE = 5;
 
 export default ({ pageContext }) => {
   const [fontSizeComputed, setFontSizeComputed] = useState(false);
+  // If the quote has an image, initialize to false and expect a callback
+  // to flip to true when image loads. Otherwise, initialize to true.
+  const [imageLoaded, setImageLoaded] = useState(!pageContext.quote.image);
 
   useEffect(() => {
     const updateFontSize = () => {
@@ -28,11 +31,14 @@ export default ({ pageContext }) => {
 
   return (
     <>
-      <QuoteOverlay quote={pageContext.quote} />
+      <QuoteOverlay
+        quote={pageContext.quote}
+        onImageLoad={() => setImageLoaded(true)}
+      />
       {/* Marker element to let screenshot.js know the page finished rendering
           and dynamic font size has been computed. Otherwise, it may capture a
           blank screenshot. */}
-      {fontSizeComputed && <br hidden data-page-loaded />}
+      {imageLoaded && fontSizeComputed && <br hidden data-page-loaded />}
     </>
   );
 };
