@@ -1,10 +1,11 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import BackgroundImage from 'gatsby-background-image';
 import classNames from 'classnames';
 
 import Page from '../components/page';
 import QuotesList from '../components/quotes-list';
-import { Background, Heading, Column } from '../components/layout';
+import { Heading, Column } from '../components/layout';
 
 const COLUMN_CLASSNAME = 'col-12 col-lg-8 mt-lg-0 mx-auto';
 
@@ -12,15 +13,14 @@ export default ({ location, pageContext, data }) => (
   <Page
     location={location}
     title={`${pageContext.topic} Quotes`}
-    // TODO: And if it's null?
     background={
-      <Background
-        style={{
-          background: data.file
-            ? `url('${data.file.publicURL}') center / cover`
-            : undefined,
-        }}
-      />
+      data.file ? (
+        <BackgroundImage
+          style={{ height: '100%' }}
+          {...data.file.childImageSharp}
+        />
+      ) :
+      undefined
     }
     heading={
       <Column className={COLUMN_CLASSNAME}>
@@ -63,7 +63,11 @@ export const query = graphql`
       relativeDirectory: { eq: "topics" }
       name: { eq: $topic }
     ) {
-      publicURL
+      childImageSharp {
+        fluid(maxWidth: 1920) {
+          ...GatsbyImageSharpFluid
+        }
+      }
     }
   }
 `;
