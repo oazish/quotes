@@ -17,7 +17,9 @@ export default ({
   full = false,
   children,
   className,
-  ...remainingProps,
+  title,
+  description,
+  type = 'website',
 }) => {
   const backgroundWrapper = (
     <aside className={styles.background}>
@@ -29,7 +31,9 @@ export default ({
       <Head
         url={useAbsoluteUrl(location.pathname)}
         image={useAbsoluteUrl(image)}
-        {...remainingProps}
+        title={title}
+        description={description}
+        type={type}
       />
       <main className={classNames({ [styles.full]: full }, className)}>
         {
@@ -139,7 +143,7 @@ const Head = ({
   image,
   imageWidth,
   imageHeight,
-  type = 'website',
+  type,
 }) => {
   const { site: { siteMetadata: { siteTitle } } } = useStaticQuery(graphql`
     {

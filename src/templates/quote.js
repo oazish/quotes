@@ -21,6 +21,7 @@ export default ({ location, data }) => {
       location={location}
       title={`Quote by ${author.name}`}
       type="article"
+      description={quote.excerpt}
       image={shareableImage.publicURL}
       imageWidth={SHAREABLE_IMAGE_DIMENSIONS.width}
       imageHeight={SHAREABLE_IMAGE_DIMENSIONS.height}
@@ -67,6 +68,8 @@ export const query = graphql`
   query($slug: String!, $quoteId: String!) {
     quote: markdownRemark(fields: { slug: { eq: $slug } }) {
       html
+      # TODO: Refactor in GraphQL fragment.
+      excerpt(pruneLength: 200)
       frontmatter {
         author {
           id
