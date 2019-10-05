@@ -1,10 +1,14 @@
 import React from 'react';
+import { graphql } from 'gatsby';
+import Img from 'gatsby-image';
 
 import Page from '../../components/page';
 import { Heading, Column } from '../../components/layout';
-import picture from '../../assets/images/authors/rama.jpg';
 
-export default ({ location }) => (
+// IMPORTANT: Keep in sync with GraphQL query (search for PORTRAIT_SIZE_PX).
+const PORTRAIT_SIZE_PX = 210;
+
+export default ({ location, data }) => (
   <Page
     location={location}
     title="About Rama, Dr. Frederick Lenz"
@@ -19,15 +23,11 @@ export default ({ location }) => (
       <div className="row">
         <div className="col-12 col-lg-auto ml-auto">
           <div
-            className="rounded-circle mb-3 mx-auto"
-            style={{
-              backgroundImage: `url('${picture}')`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              width: '210px',
-              height: '210px',
-            }}
-          />
+            className="mb-3 mx-auto rounded-circle overflow-hidden"
+            style={{ width: PORTRAIT_SIZE_PX, height: PORTRAIT_SIZE_PX }}
+          >
+            <Img className="h-100" {...data.portrait.childImageSharp} />
+          </div>
         </div>
         <div className="col-12 mt-3 ml-2 col-lg-8 mt-lg-0 mr-auto">
           <Biography />
@@ -77,3 +77,20 @@ const Biography = () => (
     </p>
   </>
 );
+
+export const query = graphql`
+  {
+    portrait: file(
+      sourceInstanceName: { eq: "images" }
+      relativeDirectory: { eq: "authors" }
+      name: { eq: "rama" }
+    ) {
+      childImageSharp {
+        # IMPORTANT: Keep in sync with PORTRAIT_SIZE_PX.
+        fixed(width: 210) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+  }
+`;
