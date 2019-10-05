@@ -12,6 +12,7 @@ const algoliaPlugin = {
 
 module.exports = {
   siteMetadata: {
+    title: 'Buddha Quotes',
     // Base URL excludes `pathPrefix` and does not have a trailing slash.
     baseUrl: 'https://buddhaquotes.org',
   },

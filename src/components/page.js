@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, withPrefix } from 'gatsby';
+import { Link, withPrefix, useStaticQuery, graphql } from 'gatsby';
 import { Helmet } from 'react-helmet';
 import classNames from 'classnames';
 
@@ -141,9 +141,20 @@ const Head = ({
   imageHeight,
   type = 'website',
 }) => {
+  const { site: { siteMetadata: { siteTitle } } } = useStaticQuery(graphql`
+    {
+      site {
+        siteMetadata {
+          siteTitle: title
+        }
+        pathPrefix
+      }
+    }
+  `);
   const metaTags = {
     description,
     // OpenGraph tags for Facebook sharing.
+    'og:site_name': siteTitle,
     'og:type': type,
     'og:url': url,
     'og:title': title,
