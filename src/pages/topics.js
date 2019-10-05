@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
-import BackgroundImage from 'gatsby-background-image';
+import Img from 'gatsby-image';
 import classNames from 'classnames';
 
 import Page from '../components/page';
@@ -51,7 +51,7 @@ export default ({ location, data }) => {
 
 const TopicImage = ({ image, ...rest }) => (
   image ? (
-    <BackgroundImage preserveStackingContext={true} {...image} {...rest} />
+    <Img {...image} {...rest} />
   ) : (
     <div className={styles.placeholder} />
   )

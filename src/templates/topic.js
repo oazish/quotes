@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import BackgroundImage from 'gatsby-background-image';
+import Img from 'gatsby-image';
 import classNames from 'classnames';
 
 import Page from '../components/page';
@@ -15,7 +15,7 @@ export default ({ location, pageContext, data }) => (
     title={`${pageContext.topic} Quotes`}
     background={
       data.file ? (
-        <BackgroundImage
+        <Img
           className="h-100"
           {...data.file.childImageSharp}
         />
