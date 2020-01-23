@@ -1,6 +1,3 @@
-// TODO: Consider renaming back to quotes.js when Gatsby issue is resolved:
-//   https://github.com/gatsbyjs/gatsby/issues/15334
-
 import React from 'react';
 import { graphql } from 'gatsby';
 

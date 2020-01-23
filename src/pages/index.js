@@ -19,13 +19,13 @@ export default ({ location, data }) => (
       <Column className={classNames(COLUMN_CLASSNAME, styles.heading)}>
         <h1>Buddha Quotes</h1>
         <span>
-          Essential quotes &amp; truth from buddhas and beings of the
+          Essential quotes &amp; truth from buddhas and beings of the<br />
           Vajrayana path
         </span>
       </Column>
     }
     background={
-      <Img className="h-100" {...data.splash.childImageSharp} />
+      <Img className="vh-100" {...data.splash.childImageSharp} />
     }
   >
     <Column className={COLUMN_CLASSNAME}>
