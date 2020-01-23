@@ -75,6 +75,13 @@ const Biography = () => (
       leave the state of infinite mind, yet one remains active and engaged in
       the world.
     </p>
+    <hr className="mt-5 mb-2" />
+    <footer className="font-italic">
+      The works of Rama, Dr Frederick Lenz (including writings, talks, and
+      photographs posted on this website) are included here with permission
+      from <a href="https://www.ramameditationsociety.org/" style={{ color: '#007bff' }}>The Frederick P.
+      Lenz Foundation for American Buddhism</a>.
+    </footer>
   </>
 );
 

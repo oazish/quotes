@@ -13,10 +13,10 @@ const COLUMN_CLASSNAME = 'col-12 col-lg-8 mx-auto';
 export default ({ location, data }) => (
   <Page
     location={location}
-    title="All Quotes"
+    title="Quotes"
     heading={
       <Column className={COLUMN_CLASSNAME}>
-        <Heading>All Quotes</Heading>
+        <Heading>Quotes</Heading>
       </Column>
     }
   >
