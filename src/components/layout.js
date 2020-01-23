@@ -17,7 +17,7 @@ export const Column = ({
   containerFluid = true,
   className,
   children,
-  ...rest,
+  ...rest
 }) => (
   <div className={containerFluid ? 'container-fluid' : 'container'}>
     <div className="row">
