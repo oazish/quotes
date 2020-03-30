@@ -4,7 +4,7 @@
  *
  * TODO: Consider consolidating with misc.js via use of MJS modules...
  */
-const kebabCase = require('lodash/kebabcase');
+const kebabCase = require('lodash.kebabcase');
 
 exports.topicLink = topic => `/topics/${kebabCase(topic)}/`;
 
