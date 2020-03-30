@@ -22,6 +22,7 @@ export default ({ location, data }) => (
     <div className="container-fluid mt-2">
       <div className="row">
         <div className="col-12 col-lg-auto ml-auto">
+          {/* TODO: See about eliminating this wrapper `<div>`... */}
           <div
             className="mb-3 mx-auto rounded-circle overflow-hidden"
             style={{ width: PORTRAIT_SIZE_PX, height: PORTRAIT_SIZE_PX }}
@@ -79,8 +80,13 @@ const Biography = () => (
     <footer className="font-italic">
       The works of Rama, Dr Frederick Lenz (including writings, talks, and
       photographs posted on this website) are included here with permission
-      from <a href="https://www.ramameditationsociety.org/" style={{ color: '#007bff' }}>The Frederick P.
-      Lenz Foundation for American Buddhism</a>.
+      from{' '}
+      <a
+        href="https://www.ramameditationsociety.org/"
+        style={{ color: '#007bff' }}
+      >
+        The Frederick P. Lenz Foundation for American Buddhism
+      </a>.
     </footer>
   </>
 );
