@@ -43,12 +43,25 @@
 .text > span {
   position: absolute;
   overflow: hidden;
-  align-items: center;
   display: flex;
+  flex-direction: column;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+}
+
+/*
+ * Vertically center quote text (rendered within `span`) by placing pseudo-
+ * elements above and below it which will expand to take up available space.
+ * This method of centering is so that if the quote text overflows the
+ * container, the top of the text will not be truncated (thus making the quote
+ * top-aligned in that case).
+ */
+.text > span::before,
+.text > span::after {
+  content: '';
+  flex-grow: 1;
 }
 
 .share:not(:hover) {
