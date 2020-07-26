@@ -1,13 +1,8 @@
 .topics section {
-  display: flex;
-  flex-wrap: wrap;
-  /*
-   * Apply negative margin to compensate for margins of children. That way,
-   * the box surrounding the children has effectively no margin while the
-   * children have margin between each other.
-   */
-   --margin: 10px;
-   margin: calc(-1 * var(--margin));
+  display: grid;
+  grid-template-columns: repeat(auto-fill, var(--topic-size));
+  grid-gap: 20px;
+  justify-content: center;
 }
 
 .topics a {
@@ -17,7 +12,6 @@
   position: relative;
   background-size: cover;
   background-position: center;
-  margin: var(--margin);
   vertical-align: middle;
   text-align: center;
   box-shadow: var(--card-shadow);
